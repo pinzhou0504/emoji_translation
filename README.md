@@ -1,27 +1,27 @@
 # emojiHW
 emoji homework for 04/17/19
-if restart the laptop, docker needs to be restarted: docker start container ID;
-creating a database called emojiHW in PgAdmin;
-Open a new IntelliJ project, called emojiHW;
-In terminal, touch a file called pom.xml. Copy & paste the content from previous emoji project, 
-then make it as a maven project;
-In terminal, mkdir a folder called src, 
-In IntelliJ, add Directory main -> java (source root) -> com -> emojiHW (put emojiHW folder into com folder) -> config ->AppCongif (Java class) ->DatabaseConfig (Java class)
-                                                                                                             -> domain ->Emoji (Java class) -> Users (Java class)
-                                -> resources (right click 'emoji' on the top -> open module setting -> change to source-type file) -> V1.0...
-                                -> write all versions of sql commands;
-                                -> creating users and emoji tables
-                                -> webapp -> WEB-INF -> web.xml
-In terminal, touch .gitignore, ignore .idea, target, out, emoji.iml... either add from IntelliJ, or in the terminal: vi .gitignore
-                                                                                                                     i
-                                                                                                                     filesName
-                                                                                                                     esc
-                                                                                                                     :x/:wq
-When deleting a database: 1. disconnect from current databse;
+1. if restart the laptop, docker needs to be restarted: docker start container ID;
+2. creating a database called emojiHW in PgAdmin;
+3. Open a new IntelliJ project, called emojiHW;
+4. In terminal, touch a file called pom.xml. Copy & paste the content from previous emoji project, 
+5. then make it as a maven project;
+6. In terminal, mkdir a folder called src, 
+7. In IntelliJ, add Directory main -> java (source root) -> com -> emojiHW (put emojiHW folder into com folder) -> config ->AppCongif (Java class) ->DatabaseConfig (Java class)
+8. com.emojiHW -> domain ->Emoji (Java class) -> Users (Java class)
+9. main -> resources (right click 'emoji' on the top -> open module setting -> change to source-type file) -> V1.0...
+10. V1.0...-> write all versions of sql commands, creating users and emoji tables;
+11. main -> webapp -> WEB-INF -> web.xml
+12. In terminal, touch .gitignore, ignore .idea, target, out, emoji.iml... either add from IntelliJ, or in the terminal: 
+-vi .gitignore
+-i
+-filesName
+-esc
+-:x/:wq
+13. When deleting a database: 1. disconnect from current databse;
                           2. in other database, drop database deleteDatabse;
-                          3. docker ps 
-                             docker stop databseName (dealerDB)
-                             docker start databseName (dealerDB);
+                          3. -docker ps 
+                             -docker stop databseName (dealerDB)
+                             -docker start databseName (dealerDB);
                           4. in other database, create database deleteDatabase;
 
 
