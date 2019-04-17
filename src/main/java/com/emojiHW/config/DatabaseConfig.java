@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-public class DarabaseConfig {
+public class DatabaseConfig {
 
     private String databaseUrl = "jdbc:postgresql://localhost:5432/emojiHW_dev";
     private String databaseUserName = "admin";
