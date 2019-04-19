@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ascending.emoji</groupId>
-    <artifactId>emoji</artifactId>
+    <groupId>com.emojiHW</groupId>
+    <artifactId>emojiHW</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>emoji</name>
+    <name>emojiHW</name>
 
     <properties>
         <spring.version>5.0.6.RELEASE</spring.version>
@@ -185,7 +185,7 @@
                 <version>${flyway.version}</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432/emojiHW</url>
+                    <url>jdbc:postgresql://localhost:5432/emojihw</url>
                     <user>admin</user>
                     <password>password</password>
                     <locations>

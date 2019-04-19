@@ -1,0 +1,1 @@
+Alter table Emoji add column conversations_id varchar(255);

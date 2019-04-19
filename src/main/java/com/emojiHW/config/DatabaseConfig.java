@@ -14,7 +14,7 @@ import java.util.Properties;
 @Configuration
 public class DatabaseConfig {
 
-    private String databaseUrl = "jdbc:postgresql://localhost:5432/emojiHW_dev";
+    private String databaseUrl = "jdbc:postgresql://localhost:5432/emojiHW";
     private String databaseUserName = "admin";
     private String databasePassword = "password";
     private String driverClassName = "org.postgresql.ds.PGSimpleDataSource";
@@ -45,7 +45,7 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(getDataSource());
-        factoryBean.setPackagesToScan(new String[]{"com.ascending.emoji.domain", "com.ascending.emoji.repository"});
+        factoryBean.setPackagesToScan(new String[]{"com.emoji.domain", "com.emoji.repository"});
         factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties props = new Properties();
