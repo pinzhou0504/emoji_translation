@@ -16,7 +16,7 @@
        specified for component-scanning -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>com.ascending.emoji.config.AppConfig</param-value>
+        <param-value>com.emojiHW.config.AppConfig</param-value>
     </context-param>
 
     <!-- Bootstrap the root application context using ContextLoaderListener -->

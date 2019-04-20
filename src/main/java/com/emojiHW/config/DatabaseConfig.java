@@ -3,6 +3,7 @@ package com.emojiHW.config;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbcp.DataSourceConnectionFactory;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -14,10 +15,17 @@ import java.util.Properties;
 @Configuration
 public class DatabaseConfig {
 
-    private String databaseUrl = "jdbc:postgresql://localhost:5432/emojiHW";
-    private String databaseUserName = "admin";
-    private String databasePassword = "password";
-    private String driverClassName = "org.postgresql.ds.PGSimpleDataSource";
+    @Value("${database.serverName}")
+    private final String databaseUrl="";
+
+    @Value("${database.username}")
+    private final String databaseUserName="";
+
+    @Value("${database.password}")
+    private final String databasePassword="";
+
+    @Value("#{shareProperties['database.dataSourceclassName']}")
+    private final String driverClassName = "";
 
     @Bean(name = "dataSource")
     public DataSource getDataSource() {
