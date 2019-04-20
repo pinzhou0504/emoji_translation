@@ -4,5 +4,6 @@ create table Emoji (
     primary key (id),
     code varchar(255),
     cldr_short_name varchar(255)
+
 );
 ALTER SEQUENCE emojis_id_seq OWNED BY Emoji.id;

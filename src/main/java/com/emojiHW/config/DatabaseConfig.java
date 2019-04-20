@@ -24,7 +24,7 @@ public class DatabaseConfig {
     @Value("${database.password}")
     private final String databasePassword="";
 
-    @Value("#{shareProperties['database.dataSourceclassName']}")
+    @Value("#{shareProperties['database.dataSourceClassName']}")
     private final String driverClassName = "";
 
     @Bean(name = "dataSource")
