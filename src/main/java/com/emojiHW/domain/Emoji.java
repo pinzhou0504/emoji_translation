@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+@Entity
 @Table(name = "emojis")
 public class Emoji {
         @Id
@@ -22,4 +23,10 @@ public class Emoji {
         private User conversations;
 
 
+        public long getId() {
+                return id;
+        }
+
+        public void setEmoji(String smiling_face) {
+        }
 }

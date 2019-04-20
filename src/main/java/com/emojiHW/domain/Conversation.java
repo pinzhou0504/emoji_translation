@@ -10,7 +10,7 @@ public class Conversation {
     @GeneratedValue(strategy = SEQUENCE, generator = "conversations_id_seq")
     @SequenceGenerator(name = "conversations_id_seq",sequenceName = "conversations_id_seq",allocationSize = 1)
 
-    private Long conversations;
+    private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
