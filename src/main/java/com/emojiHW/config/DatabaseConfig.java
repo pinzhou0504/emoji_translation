@@ -72,7 +72,7 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(getDataSource());
-        factoryBean.setPackagesToScan(new String[]{"com.emoji.domain", "com.emoji.repository"});
+        factoryBean.setPackagesToScan(new String[]{"com.emojiHW.domain", "com.emojiHW.repository"});
         factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties props = new Properties();

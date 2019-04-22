@@ -19,8 +19,8 @@ public class Emoji {
         private String cLDRShortName;
 
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "conversations_id")
-        private User conversations;
+        @JoinColumn(name = "conversation_id")
+        private Conversation conversation;
 
 
         public long getId() {

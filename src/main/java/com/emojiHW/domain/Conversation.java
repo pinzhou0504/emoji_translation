@@ -14,6 +14,6 @@ public class Conversation {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username_id")
-    private User username;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
