@@ -3,6 +3,8 @@ package com.emojiHW.domain;
 import com.sun.javafx.beans.IDProperty;
 
 import javax.persistence.*;
+import java.util.List;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -29,5 +31,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Conversation> conversation;
 
 }

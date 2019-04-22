@@ -2,6 +2,8 @@ package com.emojiHW.domain;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -13,6 +15,8 @@ public class Conversation {
 
     private Long id;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "conversation",cascade = CascadeType.ALL)
+    private List<Emoji> emoji;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
