@@ -4,10 +4,10 @@ create table emojis (
     primary key (id),
     code varchar(255),
     cldr_short_name varchar(255),
-    conversation_id varchar (255),
-     CONSTRAINT fk_conversations_emojis,
-      FOREIGN KEY (conversation_id)
-      REFERENCES conversation (id)
+    conversations_id bigint,
+     CONSTRAINT fk_conversations_emojis
+      FOREIGN KEY (conversations_id)
+      REFERENCES conversations (id)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 
