@@ -21,4 +21,12 @@ public class Conversation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
+
+    public void setConversation(String s) {
+
+    }
+
+    public long getId() {
+        return 0;
+    }
 }

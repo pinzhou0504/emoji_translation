@@ -1,6 +1,7 @@
 package com.emojiHW.repository;
 
 import com.emojiHW.config.AppConfig;
+import com.emojiHW.domain.Conversation;
 import com.emojiHW.domain.Emoji;
 import com.emojiHW.domain.User;
 import org.junit.Test;
@@ -21,19 +22,20 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(classes = {AppConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
-public class EmojiRepositoryTest {
+
+public class ConversationRepositoryTest {
     @Autowired
-    private EmojiRepository emojiRepository;
+    private ConversationRepository conversationRepository;
 
     @Test
     @Transactional
     public void findByIdTest() {
-        Emoji e = new Emoji();
-        e.setEmojiCode("U+1F600");
-        emojiRepository.save(e);
-        Optional<Emoji> testEmoji = emojiRepository.findById(e.getId());
-        assertNotNull(testEmoji);
-        assertEquals(e.getId(),testEmoji.get().getId());
+        Conversation c = new Conversation();
+        c.setConversation("smilling_face");
+        conversationRepository.save(c);
+        Optional<Conversation> testConversation = conversationRepository.findById(c.getId());
+        assertNotNull(testConversation);
+        assertEquals(c.getId(), testConversation.get().getId());
 
     }
 }

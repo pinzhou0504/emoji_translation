@@ -27,6 +27,6 @@ public class Emoji {
                 return id;
         }
 
-        public void setEmoji(String smiling_face) {
+        public void setEmojiCode(String s) {
         }
 }
