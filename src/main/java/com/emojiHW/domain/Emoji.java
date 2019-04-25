@@ -23,13 +23,10 @@ public class Emoji {
         private Conversation conversation;
 
 
-        public Long getId() { return id;
-        }
+        public Long getId() { return id; }
 
         public void setEmojiCode(String s) {
                 this.code=s;
         }
 
-        public void setId(int i) {
-        }
 }

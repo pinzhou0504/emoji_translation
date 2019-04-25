@@ -29,7 +29,7 @@ public class UserRepositoryTest {
     @Transactional
     public void findByIdTest() {
         User u = new User();
-        u.setUser("SSmith");
+        u.setUsername("SSmith");
         userRepository.save(u);
         Optional<User> testUser = userRepository.findById(u.getId());
         assertNotNull(testUser);

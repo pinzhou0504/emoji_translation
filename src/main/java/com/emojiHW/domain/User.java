@@ -34,11 +34,12 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Conversation> conversation;
 
-    public void setUser(String sSmith) {
-    }
 
-    public long getId() {
-        return id;
+
+    public Long getId() { return id; }
+
+    public void setUsername(String s) {
+        this.username=s;
     }
 
 

@@ -33,6 +33,7 @@ public class Conversation {
 
 
     public void setConversation(String s) {
+
         this.conversation = s;
     }
 }
