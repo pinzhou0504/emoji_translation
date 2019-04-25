@@ -15,18 +15,24 @@ public class Conversation {
 
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "conversation",cascade = CascadeType.ALL)
+
+    @Column(name = "conversation")
+    private String conversation;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "conversation", cascade = CascadeType.ALL)
     private List<Emoji> emoji;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private User user;
 
-    public void setConversation(String s) {
 
+    public Long getId() {
+        return id;
     }
 
-    public long getId() {
-        return 0;
+
+    public void setConversation(String s) {
+        this.conversation = s;
     }
 }
