@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface EmojiRepository extends CrudRepository<Emoji,Long> {
-
     List<Emoji> findAll();
-
     @Query("Select e FROM Emoji e LEFT JOIN FETCH e.conversation where e.id = ?1 ")
     List<Emoji> findAllWithEmoji();
 
