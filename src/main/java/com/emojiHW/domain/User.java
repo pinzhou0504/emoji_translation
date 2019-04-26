@@ -42,6 +42,10 @@ public class User {
         this.username=s;
     }
 
+    public String getUsername(String s){
+        return this.username;
+    }
+
 
 //    public User(){
 //        firstName = "John";

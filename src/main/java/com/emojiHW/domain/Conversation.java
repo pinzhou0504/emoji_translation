@@ -23,7 +23,7 @@ public class Conversation {
     private List<Emoji> emoji;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 
@@ -33,7 +33,10 @@ public class Conversation {
 
 
     public void setContent(String s) {
-
         this.content = s;
+    }
+
+    public String getContent(String s){
+        return this.content;
     }
 }
