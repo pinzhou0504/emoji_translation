@@ -25,12 +25,16 @@ public class Emoji {
 
         public Long getId() { return id; }
 
-        public void setEmojiCode(String s) {
+        public void setCode(String s) {
                 this.code=s;
         }
 
-        public String getEmojiCode(String s){
+        public String getCode(String s){
                 return this.code;
         }
+
+        public void setcLDRShortName(String s) {this.cLDRShortName=s;}
+
+        public String getcLDRShortName(String s) { return this.cLDRShortName;}
 
 }

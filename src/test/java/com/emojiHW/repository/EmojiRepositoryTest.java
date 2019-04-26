@@ -29,7 +29,8 @@ public class EmojiRepositoryTest {
     @Transactional
     public void findByIdTest() {
         Emoji e = new Emoji();
-        e.setEmojiCode("U+1F600");
+        e.setCode("U+1F600");
+        e.setcLDRShortName("grinning_face");
         emojiRepository.save(e);
         Optional<Emoji> testEmoji = emojiRepository.findById(e.getId());
         assertNotNull(testEmoji);

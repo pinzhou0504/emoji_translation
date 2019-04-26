@@ -30,6 +30,10 @@ public class UserRepositoryTest {
     public void findByIdTest() {
         User u = new User();
         u.setUsername("SSmith");
+        u.setFirstName("Sam");
+        u.setLastName("Smith");
+        u.setEmail("1234567@email.com");
+        u.setPassword("123456");
         userRepository.save(u);
         Optional<User> testUser = userRepository.findById(u.getId());
         assertNotNull(testUser);

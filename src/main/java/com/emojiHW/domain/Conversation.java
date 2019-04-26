@@ -39,4 +39,6 @@ public class Conversation {
     public String getContent(String s){
         return this.content;
     }
+
+
 }
