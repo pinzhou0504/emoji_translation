@@ -1,0 +1,1 @@
+ALTER table conversations RENAME COLUMN conversation TO content;

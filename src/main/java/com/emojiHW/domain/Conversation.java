@@ -16,8 +16,8 @@ public class Conversation {
     private Long id;
 
 
-    @Column(name = "conversation")
-    private String conversation;
+    @Column(name = "content")
+    private String content;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "conversation", cascade = CascadeType.ALL)
     private List<Emoji> emoji;
@@ -32,8 +32,8 @@ public class Conversation {
     }
 
 
-    public void setConversation(String s) {
+    public void setContent(String s) {
 
-        this.conversation = s;
+        this.content = s;
     }
 }

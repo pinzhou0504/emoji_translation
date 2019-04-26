@@ -31,7 +31,7 @@ public class ConversationRepositoryTest {
     @Transactional
     public void findByIdTest() {
         Conversation c = new Conversation();
-        c.setConversation("smilling_face");
+        c.setContent("smilling_face");
         conversationRepository.save(c);
         Optional<Conversation> testConversation = conversationRepository.findById(c.getId());
         assertNotNull(testConversation);
