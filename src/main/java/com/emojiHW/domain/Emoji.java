@@ -29,12 +29,12 @@ public class Emoji {
                 this.code=s;
         }
 
-        public String getCode(String s){
+        public String getCode(){
                 return this.code;
         }
 
         public void setcLDRShortName(String s) {this.cLDRShortName=s;}
 
-        public String getcLDRShortName(String s) { return this.cLDRShortName;}
+        public String getcLDRShortName() { return this.cLDRShortName;}
 
 }

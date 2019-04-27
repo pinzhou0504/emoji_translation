@@ -36,7 +36,7 @@ public class Conversation {
         this.content = s;
     }
 
-    public String getContent(String s){
+    public String getContent(){
         return this.content;
     }
 

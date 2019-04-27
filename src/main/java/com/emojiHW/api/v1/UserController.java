@@ -7,11 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -23,9 +22,32 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    //url: /api/user GET
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUserList(){
         logger.debug("list users");
         return userRepository.findAll();
+    }
+
+    //url: /api/user POST
+    @RequestMapping(method = RequestMethod.POST)
+    public User signUpUser(@RequestBody User user){
+//        User user = new User();
+        userRepository.save(user);
+        return user;
+    }
+
+    //get user by Id, http://localhost:8080/api/users/8 to get id = 8
+    @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
+    public User getUserById(@PathVariable("Id") Long Id){
+        Optional<User> opt = userRepository.findById(Id);
+        return opt.get();
+    }
+
+    //get /api/users?username=SSmith
+    @RequestMapping(method = RequestMethod.GET,params = {"username"})
+    public User getUserByUsername(@RequestParam("username") String username){
+        User user = userRepository.findByUsernameIgnoreCase(username);
+        return user;
     }
 }

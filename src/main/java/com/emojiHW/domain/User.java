@@ -42,25 +42,24 @@ public class User {
         this.username=s;
     }
 
-    public String getUsername(String s){
+    public String getUsername(){
         return this.username;
     }
 
     public void setFirstName(String s) {this.firstName=s;}
 
-    public String getFirstName(String s) { return this.firstName;}
+    public String getFirstName() { return this.firstName;}
 
     public void setLastName(String s) {this.lastName=s;}
 
-    public String getLastName(String s) { return this.lastName;}
+    public String getLastName() { return this.lastName;}
 
     public void setPassword(String s) {this.password=s;}
 
-    public String getPassword(String s) { return this.password;}
 
     public void setEmail(String s) {this.email=s;}
 
-    public String getEmail(String s) { return this.email;}
+    public String getEmail() { return this.email;}
 
 
 //    public User(){
