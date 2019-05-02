@@ -4,5 +4,5 @@ Alter table users alter column password set default '123456';
 
 
 Alter table users alter column last_name set not null;
-Alter table users alter column last_name set not null;
-Alter table users alter column last_name set not null;
+Alter table users alter column email set not null;
+Alter table users alter column password set not null;

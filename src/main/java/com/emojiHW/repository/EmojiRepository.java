@@ -1,6 +1,7 @@
 package com.emojiHW.repository;
 
 import com.emojiHW.domain.Emoji;
+import com.emojiHW.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,6 +13,7 @@ public interface EmojiRepository extends CrudRepository<Emoji,Long> {
     List<Emoji> findAll();
     @Query("Select e FROM Emoji e ")
     List<Emoji> findEmoji();
+    Emoji findByCodeIgnoreCase(String code);
 
 //    @Query("SELECT c FROM Emoji c LEFT JOIN FETCH c.emoji where c.id = ?1")
 //    Optional<Emoji> findByWithEmoji (Long id);

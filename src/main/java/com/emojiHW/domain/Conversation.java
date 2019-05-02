@@ -31,7 +31,6 @@ public class Conversation {
         return id;
     }
 
-
     public void setContent(String s) {
         this.content = s;
     }

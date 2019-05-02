@@ -56,7 +56,6 @@ public class User {
 
     public void setPassword(String s) {this.password=s;}
 
-
     public void setEmail(String s) {this.email=s;}
 
     public String getEmail() { return this.email;}
