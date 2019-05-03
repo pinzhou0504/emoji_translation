@@ -10,7 +10,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-@ComponentScan(basePackages = "com.emojiHW.config",
+@ComponentScan(basePackages = "com.emojiHW",
     excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX,pattern = "com.emojiHW.api.*"))
 public class AppConfig {
     private final Logger logger = LoggerFactory.getLogger(getClass());

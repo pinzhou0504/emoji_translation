@@ -22,19 +22,19 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    //url: /api/user GET user list
-    @RequestMapping(method = RequestMethod.GET)
-    public List<User> getUserList(){
-        logger.debug("list users");
-        return userRepository.findAll();
-    }
-
     //url: /api/users POST
     @RequestMapping(method = RequestMethod.POST)
     public User signUpUser(@RequestBody User user){
 //        User user = new User();
         userRepository.save(user);
         return user;
+    }
+
+    //url: /api/user GET user list
+    @RequestMapping(method = RequestMethod.GET)
+    public List<User> getUserList(){
+        logger.debug("list users");
+        return userRepository.findAll();
     }
 
     //GET user by Id, http://localhost:8080/api/users/8 to get id = 8

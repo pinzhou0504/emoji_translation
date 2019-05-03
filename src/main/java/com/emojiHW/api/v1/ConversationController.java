@@ -4,6 +4,8 @@ import com.emojiHW.domain.Conversation;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.ConversationRepository;
 import com.emojiHW.repository.UserRepository;
+import com.emojiHW.service.ConversationService;
+import com.emojiHW.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,20 @@ public class ConversationController {
 
     @Autowired
     private ConversationRepository conversationRepository;
+    @Autowired
+    private UserService userService ;
+
+    //TODO url: /api/conversations POST
+    @RequestMapping(value="/user/{user_id}",method = RequestMethod.POST)
+
+    public Conversation addContent(@RequestBody Conversation conversation,@PathVariable("user_id") Long userId){
+
+        User sender = userService.findById(userId);
+        conversation.setUser(sender);
+        conversationRepository.save(conversation);
+
+        return conversation;
+    }
 
     //url: /api/conversation GET conversation list
     @RequestMapping(method = RequestMethod.GET)
@@ -29,11 +45,12 @@ public class ConversationController {
         return conversationRepository.findAll();
     }
 
-    //url: /api/conversations POST
-    @RequestMapping(method = RequestMethod.POST)
-    public Conversation addContent(@RequestBody Conversation conversation){
-        conversationRepository.save(conversation);
-        return conversation;
+    //GET conversation by user_id  url: http://localhost:8080/api/conversations/user/1
+    @RequestMapping(value="/user/{user_id}",method = RequestMethod.GET)
+    public Conversation getConversation(@PathVariable("user_id") Long userId){
+//        logger.debug("print out userId first "+userId);
+//        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
+        return new Conversation();
     }
 
     //GET content by id: /api/conversations/8

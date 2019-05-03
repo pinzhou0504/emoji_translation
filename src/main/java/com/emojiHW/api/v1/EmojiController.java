@@ -25,19 +25,18 @@ public class EmojiController {
     @Autowired
     private EmojiRepository emojiRepository;
 
-    //url: /api/emojis GET emoji list
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Emoji> getEmojiList(){
-        logger.debug("list emojis");
-        return emojiRepository.findAll();
-    }
-
-
     //url: /api/emoji POST emoji with short_name and code
     @RequestMapping(method = RequestMethod.POST)
     public Emoji addEmoji(@RequestBody Emoji emoji){
         emojiRepository.save(emoji);
         return emoji;
+    }
+
+    //url: /api/emojis GET emoji list
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Emoji> getEmojiList(){
+        logger.debug("list emojis");
+        return emojiRepository.findAll();
     }
 
     //GET emoji by Id, http://localhost:8080/api/emojis/8 to get id = 8

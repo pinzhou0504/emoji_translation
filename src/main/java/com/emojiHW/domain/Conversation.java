@@ -1,5 +1,7 @@
 package com.emojiHW.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class Conversation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
 
@@ -32,12 +35,20 @@ public class Conversation {
     }
 
     public void setContent(String s) {
+
         this.content = s;
     }
 
     public String getContent(){
+
         return this.content;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
