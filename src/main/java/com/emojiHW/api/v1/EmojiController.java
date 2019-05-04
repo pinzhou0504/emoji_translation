@@ -5,6 +5,7 @@ import com.emojiHW.domain.Emoji;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.EmojiRepository;
 import com.emojiHW.repository.UserRepository;
+import com.emojiHW.service.ConversationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,20 +25,33 @@ public class EmojiController {
 
     @Autowired
     private EmojiRepository emojiRepository;
+    @Autowired
+    private  ConversationService conversationService;
 
-    //url: /api/emoji POST emoji with short_name and code
-    @RequestMapping(method = RequestMethod.POST)
-    public Emoji addEmoji(@RequestBody Emoji emoji){
+    //url: /api/emoji/conversation/2 POST emoji with short_name and code and connect with #2 conversation
+    @RequestMapping(value="/conversation/{conversation_id}",method = RequestMethod.POST)
+    public Emoji addEmoji(@RequestBody Emoji emoji,@PathVariable("conversation_id") Long conversationId){
+
+
+        Conversation sender = conversationService.findById(conversationId);
+        emoji.setConversation(sender);
         emojiRepository.save(emoji);
+
         return emoji;
     }
 
-    //url: /api/emojis GET emoji list
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Emoji> getEmojiList(){
-        logger.debug("list emojis");
-        return emojiRepository.findAll();
-    }
+//    @RequestMapping(method = RequestMethod.POST)
+//    public Emoji addEmoji(@RequestBody Emoji emoji){
+//        emojiRepository.save(emoji);
+//        return emoji;
+//    }
+
+//    //url: /api/emojis GET emoji list
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<Emoji> getEmojiList(){
+//        logger.debug("list emojis");
+//        return emojiRepository.findAll();
+//    }
 
     //GET emoji by Id, http://localhost:8080/api/emojis/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
@@ -46,7 +60,7 @@ public class EmojiController {
         return opt.get();
     }
 
-    //GET /api/emojis?code=U+1F600
+    //GET /api/emojis?code=U%2B1F600
     @RequestMapping(method = RequestMethod.GET,params = {"code"})
     public Emoji getEmojiByCode(@RequestParam("code") String code){
         Emoji emoji = emojiRepository.findByCodeIgnoreCase(code);

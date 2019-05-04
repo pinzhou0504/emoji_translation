@@ -21,12 +21,12 @@ public class Conversation {
     @Column(name = "content")
     private String content;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "conversation", cascade = CascadeType.ALL)
-    private List<Emoji> emoji;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "conversation", cascade = CascadeType.ALL)
+    private Emoji emoji;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+//    @JsonIgnore
     private User user;
 
 
@@ -51,4 +51,8 @@ public class Conversation {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Emoji getEmoji(){ return emoji;}
+
+    public void setEmoji(Emoji emoji){ this.emoji = emoji;}
 }

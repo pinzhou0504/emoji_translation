@@ -1,5 +1,7 @@
 package com.emojiHW.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -18,8 +20,9 @@ public class Emoji {
         @Column(name = "cldr_short_name")
         private String cLDRShortName;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "conversation_id")
+        @JsonIgnore
         private Conversation conversation;
 
 
@@ -36,5 +39,9 @@ public class Emoji {
         public void setcLDRShortName(String s) {this.cLDRShortName=s;}
 
         public String getcLDRShortName() { return this.cLDRShortName;}
+
+        public Conversation getConversation(){ return conversation;}
+
+        public void setConversation(Conversation conversation){ this.conversation = conversation;}
 
 }
