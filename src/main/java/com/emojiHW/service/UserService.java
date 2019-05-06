@@ -13,20 +13,33 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService {
     @Autowired
     public UserRepository userRepository;
-    public User findById(Long id){ return userRepository.findById(id).get(); }
 
-    public User findByUsername(String username) { return userRepository.findByUsernameIgnoreCase(username); }
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
+    }
 
-    public void deleteById(Long id){ userRepository.deleteById(id); }
+    public User findByUsername(String username) {
+        return userRepository.findByUsernameIgnoreCase(username);
+    }
 
-    public List<User> findAll(){ return userRepository.findAll(); }
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
 
-    public void save(User user) { userRepository.save(user); }
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
-    public User findByUsernameIgnoreCase(String username) { return  userRepository.findByUsernameIgnoreCase(username); }
+    public void save(User user) {
+        userRepository.save(user);
+    }
 
-    
+    public User findByUsernameIgnoreCase(String username) {
+        return userRepository.findByUsernameIgnoreCase(username);
+    }
+
+
 }

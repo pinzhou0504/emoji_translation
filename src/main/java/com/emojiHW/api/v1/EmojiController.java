@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Controller
 @ResponseBody
-@RequestMapping(value = {"/api/emoji","/api/emojis"})
+@RequestMapping(value = {"/api/emoji", "/api/emojis"})
 public class EmojiController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -27,18 +27,17 @@ public class EmojiController {
     @Autowired
     private EmojiService emojiService;
     @Autowired
-    private  ConversationService conversationService;
+    private ConversationService conversationService;
 
     //url: /api/emoji/conversation/2 POST emoji with short_name and code and connect with #2 conversation
-    @RequestMapping(value="/conversation/{conversation_id}",method = RequestMethod.POST)
-    public Emoji addEmoji(@RequestBody Emoji emoji,@PathVariable("conversation_id") Long conversationId){
-
+    @RequestMapping(value = "/conversation/{conversation_id}", method = RequestMethod.POST)
+    public Emoji addEmoji(@RequestBody Emoji emoji,
+                          @PathVariable("conversation_id") Long conversationId) {
 
         Conversation sender = conversationService.findById(conversationId);
         emoji.setConversation(sender);
-        emojiService.save(emoji);
+        return emojiService.save(emoji);
 
-        return emoji;
     }
 
 //    @RequestMapping(method = RequestMethod.POST)
@@ -55,22 +54,30 @@ public class EmojiController {
 //    }
 
     //GET emoji by Id, http://localhost:8080/api/emojis/8 to get id = 8
-    @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
-    public Emoji getEmojiById(@PathVariable("Id") Long Id){
+    @RequestMapping(method = RequestMethod.GET, value = "/{Id}")
+    public Emoji getEmojiById(@PathVariable("Id") Long Id) {
         Emoji result = emojiService.findById(Id);
         return result;
     }
 
     //GET /api/emojis?code=U%2B1F600
-    @RequestMapping(method = RequestMethod.GET,params = {"code"})
-    public Emoji getEmojiByCode(@RequestParam("code") String code){
+    @RequestMapping(method = RequestMethod.GET, params = {"code"})
+    public Emoji getEmojiByCode(@RequestParam("code") String code) {
         Emoji emoji = emojiService.findByCodeIgnoreCase(code);
         return emoji;
     }
 
+    // GET emoji by conversation_id /api/emojis/conversations/9
+    public Emoji getEmoji(@PathVariable("conversation_id") Long conversationId){
+//        logger.debug("print out userId first "+userId);
+//        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
+        Emoji e = emojiService.findByConversationId(conversationId);
+        return e;
+    }
+
     //url: /api/emoji DELETE http://localhost:8080/api/emojis/8 to delete id = 8
-    @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")
-    public void deleteEmoji(@PathVariable ("Id") Long Id){
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{Id}")
+    public void deleteEmoji(@PathVariable("Id") Long Id) {
 //        User user = new User();
         emojiService.deleteById(Id);
     }

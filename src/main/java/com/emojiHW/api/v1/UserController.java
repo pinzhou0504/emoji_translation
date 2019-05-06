@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @ResponseBody
-@RequestMapping(value = {"/api/users","/api/user"})
+@RequestMapping(value = {"/api/users", "/api/user"})
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -25,7 +25,7 @@ public class UserController {
 
     //url: /api/users POST
     @RequestMapping(method = RequestMethod.POST)
-    public User signUpUser(@RequestBody User user){
+    public User signUpUser(@RequestBody User user) {
 //        User user = new User();
         userService.save(user);
         return user;
@@ -33,28 +33,28 @@ public class UserController {
 
     //url: /api/user GET user list
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getUserList(){
+    public List<User> getUserList() {
         logger.debug("list users");
         return userService.findAll();
     }
 
     //GET user by Id, http://localhost:8080/api/users/8 to get id = 8
-    @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
-    public User getUserById(@PathVariable("Id") Long Id){
+    @RequestMapping(method = RequestMethod.GET, value = "/{Id}")
+    public User getUserById(@PathVariable("Id") Long Id) {
         User user = userService.findById(Id);
         return user;
     }
 
     //GET /api/users?username=SSmith
-    @RequestMapping(method = RequestMethod.GET,params = {"username"})
-    public User getUserByUsername(@RequestParam("username") String username){
+    @RequestMapping(method = RequestMethod.GET, params = {"username"})
+    public User getUserByUsername(@RequestParam("username") String username) {
         User user = userService.findByUsernameIgnoreCase(username);
         return user;
     }
 
     //url: /api/user DELETE http://localhost:8080/api/users/8 to delete id = 8
-    @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")
-    public void deleteUser(@PathVariable ("Id") Long Id){
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{Id}")
+    public void deleteUser(@PathVariable("Id") Long Id) {
 //        User user = new User();
         userService.deleteById(Id);
     }

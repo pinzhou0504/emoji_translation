@@ -22,7 +22,7 @@ public class Emoji {
 
         @OneToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "conversation_id")
-        @JsonIgnore
+//        @JsonIgnore
         private Conversation conversation;
 
 

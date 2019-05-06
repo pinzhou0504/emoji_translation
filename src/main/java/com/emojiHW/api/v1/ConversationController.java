@@ -32,9 +32,8 @@ public class ConversationController {
 
         User sender = userService.findById(userId);
         conversation.setUser(sender);
-        ConversationService.save(conversation);
+        return conversationService.save(conversation);
 
-        return conversation;
     }
 
 
@@ -47,20 +46,29 @@ public class ConversationController {
 //    }
 
     //GET conversation by user_id  url: http://localhost:8080/api/conversations/user/1
+//    @RequestMapping(value="/user/{user_id}",method = RequestMethod.GET)
+//    public Conversation getConversation(@PathVariable("user_id") Long userId){
+////        logger.debug("print out userId first "+userId);
+////        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
+//        Conversation c = new Conversation();
+//        return c;
+//    }
+
+    //GET conversation by user_id  url: http://localhost:8080/api/conversations/user/1
     @RequestMapping(value="/user/{user_id}",method = RequestMethod.GET)
-    public Conversation getConversation(@PathVariable("user_id") Long userId){
+    public List<Conversation> getConversation(@PathVariable("user_id") Long userId){
 //        logger.debug("print out userId first "+userId);
 //        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
-        Conversation c = new Conversation();
-        return new Conversation();
+        List<Conversation> c = conversationService.findByUserId(userId);
+        return c;
     }
 
-    //GET content by id: /api/conversations/8
-    @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
-    public Conversation getContentById(@PathVariable("Id") Long Id){
-        Conversation conversation= conversationService.findById(Id);
-        return conversation;
-    }
+//    //GET content by id: /api/conversations/8
+//    @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
+//    public Conversation getContentById(@PathVariable("Id") Long Id){
+//        Conversation conversation= conversationService.findById(Id);
+//        return conversation;
+//    }
 
     //url: /api/conversations DELETE http://localhost:8080/api/conversations/8 to delete id = 8
     @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")

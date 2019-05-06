@@ -3,7 +3,6 @@ package com.emojiHW.service;
 
 import com.emojiHW.config.AppConfig;
 import com.emojiHW.domain.User;
-import com.emojiHW.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 public class UserServiceTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Test
     @Transactional
@@ -36,9 +35,9 @@ public class UserServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
-        userRepository.save(u);
-        Optional<User> testUser = userRepository.findById(u.getId());
+        userService.save(u);
+        User testUser = userService.findById(u.getId());
         assertNotNull(testUser);
-        assertEquals(u.getId(), testUser.get().getId());
+        assertEquals(u.getId(), testUser.getId());
     }
 }
