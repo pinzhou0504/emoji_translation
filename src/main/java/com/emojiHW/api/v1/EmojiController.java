@@ -57,8 +57,8 @@ public class EmojiController {
     //GET emoji by Id, http://localhost:8080/api/emojis/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public Emoji getEmojiById(@PathVariable("Id") Long Id){
-        Optional<Emoji> opt = emojiService.findById(Id);
-        return opt.get();
+        Emoji result = emojiService.findById(Id);
+        return result;
     }
 
     //GET /api/emojis?code=U%2B1F600

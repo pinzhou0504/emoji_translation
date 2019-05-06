@@ -14,8 +14,7 @@ public class ConversationService {
     @Autowired
     public ConversationRepository conversationRepository;
 
-    public static void save(Conversation conversation) {
-    }
+    public void save(Conversation conversation) { conversationRepository.save(conversation); }
 
     public Conversation findById(Long id){
         return conversationRepository.findById(id).get();

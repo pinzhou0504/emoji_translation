@@ -41,8 +41,8 @@ public class UserController {
     //GET user by Id, http://localhost:8080/api/users/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public User getUserById(@PathVariable("Id") Long Id){
-        Optional<User> opt = userService.findById(Id);
-        return opt.get();
+        User user = userService.findById(Id);
+        return user;
     }
 
     //GET /api/users?username=SSmith

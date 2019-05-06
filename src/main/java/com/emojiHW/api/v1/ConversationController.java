@@ -58,8 +58,8 @@ public class ConversationController {
     //GET content by id: /api/conversations/8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public Conversation getContentById(@PathVariable("Id") Long Id){
-        Optional<Conversation> opt = conversationService.findById(Id);
-        return opt.get();
+        Conversation conversation= conversationService.findById(Id);
+        return conversation;
     }
 
     //url: /api/conversations DELETE http://localhost:8080/api/conversations/8 to delete id = 8
