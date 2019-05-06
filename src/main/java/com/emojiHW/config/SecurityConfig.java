@@ -6,23 +6,48 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //step 1
+//    @Autowired
+//    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     @Autowired
-    public void configureGlocal(AuthenticationManagerBuilder auth)
-        throws Exception{
-        auth.inMemoryAuthentication().withUser("user1")
-                .password("{noop}password").roles("REGISTERED_USER");
-    }
+    private UserDetailsService userDetailsService;
+    //step 1
+//    @Autowired
+//    public void configureGlocal(AuthenticationManagerBuilder auth)
+//        throws Exception{
+//        auth.inMemoryAuthentication().withUser("user1")
+//                .password("{noop}password").roles("REGISTERED_USER");
+//    }
+//
+//    protected void configure(HttpSecurity http) throws Exception{
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin();
+//    }
 
+    //Step 2
+    @Autowired
+    public void configureGlocal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication().withUser("user")
+//                .password("{noop}password").roles("USER");
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+    }
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
+               .authorizeRequests().antMatchers("/api/users/login","/api/user/login","/api/users/signup").permitAll()
                 .and()
-                .formLogin();
+                .authorizeRequests().antMatchers("/api/**").hasAnyRole("REGISTERED_USER","ADMIN")
+                .and().formLogin();
+//                    .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
     }
+
 }

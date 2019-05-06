@@ -6,6 +6,7 @@ import com.emojiHW.domain.User;
 import com.emojiHW.repository.EmojiRepository;
 import com.emojiHW.repository.UserRepository;
 import com.emojiHW.service.ConversationService;
+import com.emojiHW.service.EmojiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class EmojiController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private EmojiRepository emojiRepository;
+    private EmojiService emojiService;
     @Autowired
     private  ConversationService conversationService;
 
@@ -35,7 +36,7 @@ public class EmojiController {
 
         Conversation sender = conversationService.findById(conversationId);
         emoji.setConversation(sender);
-        emojiRepository.save(emoji);
+        emojiService.save(emoji);
 
         return emoji;
     }
@@ -56,14 +57,14 @@ public class EmojiController {
     //GET emoji by Id, http://localhost:8080/api/emojis/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public Emoji getEmojiById(@PathVariable("Id") Long Id){
-        Optional<Emoji> opt = emojiRepository.findById(Id);
+        Optional<Emoji> opt = emojiService.findById(Id);
         return opt.get();
     }
 
     //GET /api/emojis?code=U%2B1F600
     @RequestMapping(method = RequestMethod.GET,params = {"code"})
     public Emoji getEmojiByCode(@RequestParam("code") String code){
-        Emoji emoji = emojiRepository.findByCodeIgnoreCase(code);
+        Emoji emoji = emojiService.findByCodeIgnoreCase(code);
         return emoji;
     }
 
@@ -71,7 +72,7 @@ public class EmojiController {
     @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")
     public void deleteEmoji(@PathVariable ("Id") Long Id){
 //        User user = new User();
-        emojiRepository.deleteById(Id);
+        emojiService.deleteById(Id);
     }
 
 

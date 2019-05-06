@@ -6,6 +6,7 @@ import com.emojiHW.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.persistence.Id;
 import java.util.List;
 
 public interface ConversationRepository extends CrudRepository<Conversation,Long> {
@@ -21,4 +22,6 @@ public interface ConversationRepository extends CrudRepository<Conversation,Long
 
     @Query("select c from Conversation c join fetch c.emoji where c.id=?1")
     Conversation findConversationWithEmoji(Long Id);
+
+    void deleteById(Long id);
 }

@@ -1,15 +1,18 @@
 package com.emojiHW.domain;
 
 import com.sun.javafx.beans.IDProperty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
@@ -42,9 +45,27 @@ public class User {
         this.username=s;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
+
+    @Override
+    public String getPassword() { return this.password; }
+
     public String getUsername(){
         return this.username;
     }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
 
     public void setFirstName(String s) {this.firstName=s;}
 

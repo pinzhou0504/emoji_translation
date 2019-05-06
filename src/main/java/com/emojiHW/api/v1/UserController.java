@@ -3,6 +3,7 @@ package com.emojiHW.api.v1;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.ConversationRepository;
 import com.emojiHW.repository.UserRepository;
+import com.emojiHW.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,13 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     //url: /api/users POST
     @RequestMapping(method = RequestMethod.POST)
     public User signUpUser(@RequestBody User user){
 //        User user = new User();
-        userRepository.save(user);
+        userService.save(user);
         return user;
     }
 
@@ -34,20 +35,20 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUserList(){
         logger.debug("list users");
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
     //GET user by Id, http://localhost:8080/api/users/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public User getUserById(@PathVariable("Id") Long Id){
-        Optional<User> opt = userRepository.findById(Id);
+        Optional<User> opt = userService.findById(Id);
         return opt.get();
     }
 
     //GET /api/users?username=SSmith
     @RequestMapping(method = RequestMethod.GET,params = {"username"})
     public User getUserByUsername(@RequestParam("username") String username){
-        User user = userRepository.findByUsernameIgnoreCase(username);
+        User user = userService.findByUsernameIgnoreCase(username);
         return user;
     }
 
@@ -55,6 +56,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")
     public void deleteUser(@PathVariable ("Id") Long Id){
 //        User user = new User();
-        userRepository.deleteById(Id);
+        userService.deleteById(Id);
     }
 }

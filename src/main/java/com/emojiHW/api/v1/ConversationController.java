@@ -22,7 +22,7 @@ public class ConversationController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ConversationRepository conversationRepository;
+    private ConversationService conversationService;
     @Autowired
     private UserService userService ;
 
@@ -32,7 +32,7 @@ public class ConversationController {
 
         User sender = userService.findById(userId);
         conversation.setUser(sender);
-        conversationRepository.save(conversation);
+        ConversationService.save(conversation);
 
         return conversation;
     }
@@ -58,13 +58,13 @@ public class ConversationController {
     //GET content by id: /api/conversations/8
     @RequestMapping(method = RequestMethod.GET,value = "/{Id}")
     public Conversation getContentById(@PathVariable("Id") Long Id){
-        Optional<Conversation> opt = conversationRepository.findById(Id);
+        Optional<Conversation> opt = conversationService.findById(Id);
         return opt.get();
     }
 
     //url: /api/conversations DELETE http://localhost:8080/api/conversations/8 to delete id = 8
     @RequestMapping(method = RequestMethod.DELETE,value = "/{Id}")
     public void deleteContent(@PathVariable ("Id") Long Id){
-        conversationRepository.deleteById(Id);
+        conversationService.deleteById(Id);
     }
 }
