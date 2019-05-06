@@ -1,5 +1,6 @@
 package com.emojiHW.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.javafx.beans.IDProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,9 +36,13 @@ public class User implements UserDetails {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Conversation> conversation;
 
 
+    public List<Conversation> getConversation() {
+        return conversation;
+    }
 
     public Long getId() { return id; }
 
@@ -46,24 +51,30 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
-
-    @Override
     public String getPassword() { return this.password; }
 
     public String getUsername(){
         return this.username;
     }
 
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
+
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() { return true; }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() { return true; }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() { return true; }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() { return true; }
 

@@ -68,6 +68,7 @@ public class EmojiController {
     }
 
     // GET emoji by conversation_id /api/emojis/conversations/9
+    @RequestMapping(value="/conversation/{conversation_id}",method = RequestMethod.GET)
     public Emoji getEmoji(@PathVariable("conversation_id") Long conversationId){
 //        logger.debug("print out userId first "+userId);
 //        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
