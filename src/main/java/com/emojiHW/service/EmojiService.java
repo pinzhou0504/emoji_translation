@@ -24,8 +24,8 @@ public class EmojiService {
         emojiRepository.deleteById(id);
     }
 
-    public Emoji findByCodeIgnoreCase(String code) {
-        return emojiRepository.findByCodeIgnoreCase(code);
+    public Emoji findEmojiByCodeIgnoreCase(String code) {
+        return emojiRepository.findEmojiByCodeIgnoreCase(code);
     }
 
     public Emoji save(Emoji e) {
@@ -33,7 +33,7 @@ public class EmojiService {
     }
 
     @Transactional
-    public Emoji findByConversationId(Long conversationId) {
-        return emojiRepository.findByConversationId(conversationId);
+    public Emoji findEmojiByConversationId(Long conversationId) {
+        return emojiRepository.findEmojiByConversationId(conversationId);
     }
 }

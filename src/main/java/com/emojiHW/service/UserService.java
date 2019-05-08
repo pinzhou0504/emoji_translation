@@ -22,10 +22,10 @@ public class UserService {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public User createUser(User newUser){
+    public User createUser(User newUser) {
         String encodedPass = encoder.encode(newUser.getPassword());
         newUser.setPassword(encodedPass);
-        save(newUser);
+        userRepository.save(newUser);
         return newUser;
     }
 
@@ -33,9 +33,9 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsernameIgnoreCase(username);
-    }
+//    public User findByUsername(String username) {
+//        return userRepository.findByUsernameIgnoreCase(username);
+//    }
 
     public void deleteById(Long id) {
         userRepository.deleteById(id);

@@ -28,8 +28,8 @@ public class ConversationService {
     }
 
     @Transactional
-    public List<Conversation> findByUserId(Long userId) {
-        return conversationRepository.findByUserId(userId);
+    public List<Conversation> findConversationByUserId(Long userId) {
+        return conversationRepository.findConversationByUserId(userId);
     }
 
 }

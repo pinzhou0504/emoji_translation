@@ -13,11 +13,11 @@ import java.util.Optional;
 public interface EmojiRepository extends CrudRepository<Emoji,Long> {
     List<Emoji> findAll();
     @Query("Select e FROM Emoji e ")
-    List<Emoji> findEmoji();
-    Emoji findByCodeIgnoreCase(String code);
+
+    Emoji findEmojiByCodeIgnoreCase(String code);
 
     @Query("SELECT e from Emoji e join fetch e.conversation where e.conversation.id=?1")
-    Emoji findByConversationId(Long conversationId);
+    Emoji findEmojiByConversationId(Long conversationId);
 
 //    @Query("SELECT c FROM Emoji c LEFT JOIN FETCH c.emoji where c.id = ?1")
 //    Optional<Emoji> findByWithEmoji (Long id);

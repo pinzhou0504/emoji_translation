@@ -25,14 +25,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
 public class UserDetailServiceImplTest {
-
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private UserRepository userRepository;
 
 //    private final Logger logger = LoggerFactory.getLogger(getClass());
-
 
     @Test
     @Transactional

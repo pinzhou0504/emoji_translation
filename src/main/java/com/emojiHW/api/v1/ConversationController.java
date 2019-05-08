@@ -59,7 +59,7 @@ public class ConversationController {
     public List<Conversation> getConversation(@PathVariable("user_id") Long userId){
 //        logger.debug("print out userId first "+userId);
 //        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
-        List<Conversation> c = conversationService.findByUserId(userId);
+        List<Conversation> c = conversationService.findConversationByUserId(userId);
         return c;
     }
 

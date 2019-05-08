@@ -63,7 +63,7 @@ public class EmojiController {
     //GET /api/emojis?code=U%2B1F600
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
     public Emoji getEmojiByCode(@RequestParam("code") String code) {
-        Emoji emoji = emojiService.findByCodeIgnoreCase(code);
+        Emoji emoji = emojiService.findEmojiByCodeIgnoreCase(code);
         return emoji;
     }
 
