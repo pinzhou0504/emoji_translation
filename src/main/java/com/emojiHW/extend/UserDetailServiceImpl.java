@@ -27,5 +27,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         return domainUser;
     }
 
+    public void save(User user){
+        userService.save(user);
+    }
+
 
 }

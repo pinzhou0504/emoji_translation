@@ -6,9 +6,11 @@ import com.emojiHW.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,16 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     public UserRepository userRepository;
+
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    @Transactional
+    public User createUser(User newUser){
+        String encodedPass = encoder.encode(newUser.getPassword());
+        newUser.setPassword(encodedPass);
+        save(newUser);
+        return newUser;
+    }
 
     public User findById(Long id) {
         return userRepository.findById(id).get();

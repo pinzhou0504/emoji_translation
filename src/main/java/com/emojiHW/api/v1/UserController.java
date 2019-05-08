@@ -25,9 +25,9 @@ public class UserController {
 
     //url: /api/users POST
     @RequestMapping(method = RequestMethod.POST)
-    public User signUpUser(@RequestBody User user) {
+    public User createUser(@RequestBody User user) {
 //        User user = new User();
-        userService.save(user);
+        userService.createUser(user);
         return user;
     }
 

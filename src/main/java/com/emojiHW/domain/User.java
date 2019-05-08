@@ -58,6 +58,7 @@ public class User implements UserDetails {
     }
 
 
+
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
