@@ -67,11 +67,16 @@ public class UserServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setAccountNonExpired();
+        u.setAccountNonLocked();
+        u.setCredentialsNonExpired();
+        u.setEnabled();
+
         userService.createUser(u);
         List<User> testUser = userService.findAll();
         assertNotNull(testUser);
         //存了一个user,和一个test比较，所以size=2
-        assertEquals(testUser.size(),2);
+        assertEquals(testUser.size(),1);
         //存的user是第0个，所以0和test比较
         assertEquals(u.getUsername(),testUser.get(0).getUsername());
 

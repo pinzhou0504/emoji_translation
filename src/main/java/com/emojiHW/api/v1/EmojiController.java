@@ -72,7 +72,7 @@ public class EmojiController {
     public Emoji getEmoji(@PathVariable("conversation_id") Long conversationId){
 //        logger.debug("print out userId first "+userId);
 //        Conversation conversation = conversationRepository.findByUserIdIgnoreCase(userId);
-        Emoji e = emojiService.findByConversationId(conversationId);
+        Emoji e = emojiService.findEmojiByConversationId(conversationId);
         return e;
     }
 

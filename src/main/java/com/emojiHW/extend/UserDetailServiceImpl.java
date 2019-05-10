@@ -23,7 +23,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug(username+"is trying to log in from spring security");
-        User domainUser = userService.findByUsername(username);
+        User domainUser = userService.findByUsernameIgnoreCase(username);
         return domainUser;
     }
 

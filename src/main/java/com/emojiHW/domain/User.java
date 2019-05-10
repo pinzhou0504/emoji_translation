@@ -35,6 +35,18 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "account_non_expired")
+    private boolean accountNonExpired;
+
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked;
+
+    @Column(name = "credentials_non_expired")
+    private boolean credentialsNonExpired;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Conversation> conversation;
@@ -53,6 +65,7 @@ public class User implements UserDetails {
     @Override
     public String getPassword() { return this.password; }
 
+    @Override
     public String getUsername(){
         return this.username;
     }
@@ -65,19 +78,37 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @Override
-    public boolean isAccountNonExpired() { return true; }
+    public boolean isAccountNonExpired() { return this.accountNonExpired; }
+
+
+    public void setAccountNonExpired(){ this.accountNonExpired=true;}
+
+    public boolean getAccountNonExpired(){ return this.accountNonExpired;}
+
+    public void setAccountNonLocked(){this.accountNonLocked=true;}
+
+    public boolean getAccountNonLocked(){return this.accountNonLocked;}
+
 
     @JsonIgnore
     @Override
-    public boolean isAccountNonLocked() { return true; }
+    public boolean isAccountNonLocked() { return this.accountNonLocked; }
 
     @JsonIgnore
     @Override
-    public boolean isCredentialsNonExpired() { return true; }
+    public boolean isCredentialsNonExpired() { return this.credentialsNonExpired; }
+
+    public void setCredentialsNonExpired(){ this.credentialsNonExpired=true;}
+
+    public boolean getCredentialsNonExpired(){ return this.credentialsNonExpired;}
 
     @JsonIgnore
     @Override
-    public boolean isEnabled() { return true; }
+    public boolean isEnabled() { return this.enabled; }
+
+    public void setEnabled(){ this.enabled=true;}
+
+    public boolean getEnabled(){ return this.enabled;}
 
     public void setFirstName(String s) {this.firstName=s;}
 
