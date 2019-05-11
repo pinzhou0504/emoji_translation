@@ -48,25 +48,26 @@ public class ConversationServiceTest {
 
         //在conversation里找user的id，所以要设置user的instance
         User u = new User();
-//        u.setUsername("SSmith");
+        u.setUsername("SSmith");
 //        u.setFirstName("Sam");
-//        u.setLastName("Smith");
-//        u.setEmail("1234567@email.com");
-//        u.setPassword("123456");
+        u.setLastName("Smith");
+        u.setEmail("1234567@email.com");
+        u.setPassword("123456");
 //        u.setAccountNonExpired(true);
 //        u.setAccountNonLocked(true);
 //        u.setCredentialsNonExpired(true);
 //        u.setEnabled(true);
-//        userService.save(u);
+        userService.save(u);
         Long userId = u.getId();
-//        Conversation c = new Conversation();
-//        c.setContent("smilling_face");
-//        conversationService.save(conversationService.findById(userId));
+        Conversation c = new Conversation();
+        c.setContent("smilling_face");
+        c.setUser(u);
+        conversationService.save(c);
 
 
         List<Conversation> testConversation = conversationService.findConversationByUserId(userId);
         assertNotNull(testConversation);
-        assertEquals(testConversation.size(),0);
+        assertEquals(testConversation.size(),1);
 
     }
 }
