@@ -18,36 +18,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 //    step 1
-    @Autowired
-    public void configureGlocal(AuthenticationManagerBuilder auth)
-        throws Exception{
-        auth.inMemoryAuthentication().withUser("user1")
-                .password("{noop}password").roles("REGISTERED_USER");
-    }
-
-    protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin();
-    }
-//
-//    //Step 2
 //    @Autowired
-//    public void configureGlocal(AuthenticationManagerBuilder auth) throws Exception{
-//        auth.inMemoryAuthentication().withUser("user")
-//                .password("{noop}password").roles("USER");
-//        PasswordEncoder encoder = new BCryptPasswordEncoder();
-//        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+//    public void configureGlocal(AuthenticationManagerBuilder auth)
+//        throws Exception{
+//        auth.inMemoryAuthentication().withUser("user1")
+//                .password("{noop}password").roles("REGISTERED_USER");
 //    }
+//
 //    protected void configure(HttpSecurity http) throws Exception{
 //        http.csrf().disable()
-//               .authorizeRequests().antMatchers("/api/users/login","/api/user/login","/api/users/signup").permitAll()
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
 //                .and()
-//                .authorizeRequests().antMatchers("/api/**").hasAnyRole("REGISTERED_USER","ADMIN")
-//                .and().formLogin();
-////                    .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+//                .formLogin();
 //    }
+
+    //Step 2
+    @Autowired
+    public void configureGlocal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication().withUser("user")
+//                .password("{noop}password").roles("USER");
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+    }
+    protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable()
+               .authorizeRequests().antMatchers("/api/users/login","/api/user/login","/api/users/signup").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/api/**").hasAnyRole("REGISTERED_USER","ADMIN")
+                .and().formLogin();
+//                    .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+    }
 
 }

@@ -1,12 +1,9 @@
 package com.emojiHW.repository;
 
 import com.emojiHW.domain.Conversation;
-import com.emojiHW.domain.Emoji;
-import com.emojiHW.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.Id;
 import java.util.List;
 
 public interface ConversationRepository extends CrudRepository<Conversation,Long> {

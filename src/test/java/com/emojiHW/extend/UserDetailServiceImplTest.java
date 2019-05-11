@@ -41,10 +41,10 @@ public class UserDetailServiceImplTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
-        u.setAccountNonExpired();
-        u.setAccountNonLocked();
-        u.setCredentialsNonExpired();
-        u.setEnabled();
+        u.setAccountNonExpired(true);
+        u.setAccountNonLocked(true);
+        u.setCredentialsNonExpired(true);
+        u.setEnabled(true);
         userRepository.save(u);
         UserDetails testUser = userDetailsService.loadUserByUsername(u.getUsername());
         assertNotNull(testUser);

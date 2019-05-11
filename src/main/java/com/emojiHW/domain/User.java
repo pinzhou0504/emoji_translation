@@ -49,21 +49,27 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Conversation> conversation;
+    private List<Conversation> conversations;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Authority> authorities;
 
 
     public List<Conversation> getConversation() {
-        return conversation;
+        return conversations;
     }
 
+    public void setAuthority(String authority){this.authorities = authorities;}
+
+    public List<Authority> getAuthority(){return authorities;}
+
     public Long getId() { return id; }
+
 
     public void setUsername(String s) {
         this.username=s;
     }
-
-    @Override
-    public String getPassword() { return this.password; }
 
     @Override
     public String getUsername(){
@@ -71,44 +77,47 @@ public class User implements UserDetails {
     }
 
 
-
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
+
 
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() { return this.accountNonExpired; }
 
-
-    public void setAccountNonExpired(){ this.accountNonExpired=true;}
+    public void setAccountNonExpired(Boolean accountNonExpired){ this.accountNonExpired=accountNonExpired;}
 
     public boolean getAccountNonExpired(){ return this.accountNonExpired;}
-
-    public void setAccountNonLocked(){this.accountNonLocked=true;}
-
-    public boolean getAccountNonLocked(){return this.accountNonLocked;}
 
 
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() { return this.accountNonLocked; }
 
+    public void setAccountNonLocked(Boolean accountNonLocked){this.accountNonLocked=accountNonLocked;}
+
+    public boolean getAccountNonLocked(){return this.accountNonLocked;}
+
+
     @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() { return this.credentialsNonExpired; }
 
-    public void setCredentialsNonExpired(){ this.credentialsNonExpired=true;}
+    public void setCredentialsNonExpired(Boolean credentialsNonExpired){ this.credentialsNonExpired=credentialsNonExpired;}
 
     public boolean getCredentialsNonExpired(){ return this.credentialsNonExpired;}
+
 
     @JsonIgnore
     @Override
     public boolean isEnabled() { return this.enabled; }
 
-    public void setEnabled(){ this.enabled=true;}
+    public void setEnabled(Boolean enabled){ this.enabled=enabled;}
 
     public boolean getEnabled(){ return this.enabled;}
+
+
 
     public void setFirstName(String s) {this.firstName=s;}
 
@@ -117,6 +126,9 @@ public class User implements UserDetails {
     public void setLastName(String s) {this.lastName=s;}
 
     public String getLastName() { return this.lastName;}
+
+    @Override
+    public String getPassword() { return this.password; }
 
     public void setPassword(String s) {this.password=s;}
 
