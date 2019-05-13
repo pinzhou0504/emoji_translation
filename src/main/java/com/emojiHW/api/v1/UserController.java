@@ -31,6 +31,14 @@ public class UserController {
         return user;
     }
 
+    //url: /api/users/login POST
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public User login(@RequestBody User user){
+        logger.debug(user.getUsername());
+        logger.debug(user.getPassword());
+        return user;
+    }
+
     //url: /api/user GET user list
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUserList() {

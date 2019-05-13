@@ -14,7 +14,6 @@ public class Conversation {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "conversations_id_seq")
     @SequenceGenerator(name = "conversations_id_seq", sequenceName = "conversations_id_seq", allocationSize = 1)
-
     private Long id;
 
 
@@ -26,7 +25,7 @@ public class Conversation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-//    @JsonIgnore
+    @JsonIgnore
     private User user;
 
 
@@ -35,12 +34,10 @@ public class Conversation {
     }
 
     public void setContent(String s) {
-
         this.content = s;
     }
 
     public String getContent(){
-
         return this.content;
     }
 

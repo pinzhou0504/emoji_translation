@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public interface EmojiRepository extends CrudRepository<Emoji,Long> {
     List<Emoji> findAll();
-    @Query("Select e FROM Emoji e ")
 
+    @Query("Select e FROM Emoji e join fetch e.conversation where e.code=?1")
     Emoji findEmojiByCodeIgnoreCase(String code);
 
     @Query("SELECT e from Emoji e join fetch e.conversation where e.conversation.id=?1")

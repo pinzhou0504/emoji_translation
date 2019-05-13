@@ -17,7 +17,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
-
     private Long id;
 
     @Column(unique = true)
@@ -30,6 +29,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "email")
@@ -48,16 +48,20 @@ public class User implements UserDetails {
     private boolean enabled;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Conversation> conversations;
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
+//    @JsonIgnore
     private List<Authority> authorities;
 
 
-    public List<Conversation> getConversation() {
+    public List<Conversation> getConversations() {
         return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
     }
 
     public void setAuthority(String authority){this.authorities = authorities;}

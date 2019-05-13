@@ -1,5 +1,6 @@
 package com.emojiHW.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.management.relation.Role;
@@ -21,7 +22,7 @@ public class Authority implements GrantedAuthority {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-//    @JsonIgnore
+    @JsonIgnore
     private User user;
 
     public User getUser() {

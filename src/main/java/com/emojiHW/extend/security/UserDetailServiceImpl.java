@@ -1,4 +1,4 @@
-package com.emojiHW.extend;
+package com.emojiHW.extend.security;
 
 import com.emojiHW.domain.User;
 import com.emojiHW.service.UserService;
@@ -24,12 +24,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug(username+"is trying to log in from spring security");
         User domainUser = userService.findByUsernameIgnoreCase(username);
+
         return domainUser;
     }
-
-    public void save(User user){
-        userService.save(user);
-    }
+//
+//    public void save(User user){
+//        userService.save(user);
+//    }
 
 
 }
