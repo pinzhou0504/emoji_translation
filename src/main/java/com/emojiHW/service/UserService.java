@@ -1,6 +1,7 @@
 package com.emojiHW.service;
 
 
+import com.emojiHW.domain.Authority;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,10 @@ public class UserService {
     public User createUser(User newUser) {
         String encodedPass = encoder.encode(newUser.getPassword());
         newUser.setPassword(encodedPass);
-//        newUser.setAccountNonExpired(true);
-//        newUser.setAccountNonLocked(true);
-//        newUser.setCredentialsNonExpired(true);
-//        newUser.setEnabled(true);
+        newUser.setAccountNonExpired(true);
+        newUser.setAccountNonLocked(true);
+        newUser.setCredentialsNonExpired(true);
+        newUser.setEnabled(true);
         userRepository.save(newUser);
         return newUser;
     }
@@ -56,6 +57,8 @@ public class UserService {
     public User findByUsernameIgnoreCase(String username) {
         return userRepository.findByUsernameIgnoreCase(username);
     }
-
+    public List<Authority> findAuthorities(User domainUser){
+        return userRepository.findAuthorities(domainUser);
+    }
 
 }

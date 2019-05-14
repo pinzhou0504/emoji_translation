@@ -50,11 +50,13 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Conversation> conversations;
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-//    @JsonIgnore
     private List<Authority> authorities;
+
+
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+////    @JsonIgnore
+//    private List<Authority> authorities;
 
 
     public List<Conversation> getConversations() {
@@ -65,9 +67,9 @@ public class User implements UserDetails {
         this.conversations = conversations;
     }
 
-    public void setAuthority(String authority){this.authorities = authorities;}
-
-    public List<Authority> getAuthority(){return authorities;}
+//    public void setAuthority(String authority){this.authorities = authorities;}
+//
+//    public List<Authority> getAuthority(){return authorities;}
 
     public Long getId() { return id; }
 
@@ -86,12 +88,16 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
 
+    public void setAuthorities(List<Authority> authorities){
+        this.authorities = authorities;
+    }
+
 
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() { return this.accountNonExpired; }
 
-    public void setAccountNonExpired(Boolean accountNonExpired){ this.accountNonExpired=accountNonExpired;}
+    public void setAccountNonExpired(boolean accountNonExpired){ this.accountNonExpired=accountNonExpired;}
 
     public boolean getAccountNonExpired(){ return this.accountNonExpired;}
 
@@ -100,7 +106,7 @@ public class User implements UserDetails {
     @Override
     public boolean isAccountNonLocked() { return this.accountNonLocked; }
 
-    public void setAccountNonLocked(Boolean accountNonLocked){this.accountNonLocked=accountNonLocked;}
+    public void setAccountNonLocked(boolean accountNonLocked){this.accountNonLocked=accountNonLocked;}
 
     public boolean getAccountNonLocked(){return this.accountNonLocked;}
 
@@ -109,7 +115,7 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() { return this.credentialsNonExpired; }
 
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired){ this.credentialsNonExpired=credentialsNonExpired;}
+    public void setCredentialsNonExpired(boolean credentialsNonExpired){ this.credentialsNonExpired=credentialsNonExpired;}
 
     public boolean getCredentialsNonExpired(){ return this.credentialsNonExpired;}
 
@@ -118,7 +124,7 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() { return this.enabled; }
 
-    public void setEnabled(Boolean enabled){ this.enabled=enabled;}
+    public void setEnabled(boolean enabled){ this.enabled=enabled;}
 
     public boolean getEnabled(){ return this.enabled;}
 

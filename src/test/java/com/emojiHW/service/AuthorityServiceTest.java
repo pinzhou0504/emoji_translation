@@ -26,15 +26,25 @@ import static org.junit.Assert.assertEquals;
 public class AuthorityServiceTest {
     @Autowired
     public AuthorityService authorityService;
+    @Autowired
+    public UserService userService;
 
     @Test
     @Transactional
     public void findAuthorityByUserId(){
-
         User u = new User();
+        u.setUsername("SSmith");
+        u.setLastName("Smith");
+        u.setEmail("1234567@email.com");
+        u.setPassword("123456");
+        userService.save(u);
         Long userId = u.getId();
+        Authority a = new Authority();
+        a.setRole("admin");
+        a.setUser(u);
+        authorityService.save(a);
         List<Authority> testAuthority = authorityService.findAuthorityByUserId(userId);
         assertNotNull(testAuthority);
-        assertEquals(testAuthority.size(),0);
+        assertEquals(testAuthority.size(),1);
     }
 }
