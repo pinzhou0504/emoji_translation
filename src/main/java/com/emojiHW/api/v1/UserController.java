@@ -1,8 +1,7 @@
 package com.emojiHW.api.v1;
 
+import com.emojiHW.extend.security.RestAuthenticationRequest;
 import com.emojiHW.domain.User;
-import com.emojiHW.repository.ConversationRepository;
-import com.emojiHW.repository.UserRepository;
 import com.emojiHW.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -26,18 +24,19 @@ public class UserController {
     //url: /api/users POST
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
     public User createUser(@RequestBody User user) {
-//        User user = new User();
-        userService.createUser(user);
-        return user;
+        User u = userService.createUser(user);
+        return u;
     }
 
     //url: /api/users/login POST
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public User login(@RequestBody User user){
-        logger.debug(user.getUsername());
-        logger.debug(user.getPassword());
-        return user;
+    public RestAuthenticationRequest login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
+        logger.debug(restAuthenticationRequest.getUsername());
+        logger.debug(restAuthenticationRequest.getPassword());
+        return restAuthenticationRequest;
     }
+
+
 
     //url: /api/user GET user list
     @RequestMapping(method = RequestMethod.GET)

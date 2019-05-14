@@ -25,10 +25,10 @@ public class UserService {
     public User createUser(User newUser) {
         String encodedPass = encoder.encode(newUser.getPassword());
         newUser.setPassword(encodedPass);
-        newUser.setAccountNonExpired(true);
-        newUser.setAccountNonLocked(true);
-        newUser.setCredentialsNonExpired(true);
-        newUser.setEnabled(true);
+//        newUser.setAccountNonExpired(true);
+//        newUser.setAccountNonLocked(true);
+//        newUser.setCredentialsNonExpired(true);
+//        newUser.setEnabled(true);
         userRepository.save(newUser);
         return newUser;
     }

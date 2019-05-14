@@ -1,6 +1,7 @@
 package com.emojiHW.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.javafx.beans.IDProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,6 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(name = "password")
-    @JsonIgnore
     private String password;
 
     @Column(name = "email")
@@ -46,6 +46,7 @@ public class User implements UserDetails {
 
     @Column(name = "enabled")
     private boolean enabled;
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Conversation> conversations;
@@ -132,8 +133,10 @@ public class User implements UserDetails {
     public String getLastName() { return this.lastName;}
 
     @Override
+    @JsonIgnore
     public String getPassword() { return this.password; }
 
+    @JsonProperty
     public void setPassword(String s) {this.password=s;}
 
     public void setEmail(String s) {this.email=s;}
