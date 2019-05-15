@@ -50,6 +50,8 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Conversation> conversations;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Authority> authorities;
 
 
@@ -86,7 +88,7 @@ public class User implements UserDetails {
 
     @JsonIgnore
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { return null; }
+    public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
 
     public void setAuthorities(List<Authority> authorities){
         this.authorities = authorities;

@@ -47,4 +47,44 @@ public class AuthorityServiceTest {
         assertNotNull(testAuthority);
         assertEquals(testAuthority.size(),1);
     }
+
+//下面这两个是一个东西！！！一个是在service里面加了addAuthority方法，一个没有加直接在servicetest里面写方法
+
+    @Test
+    @Transactional
+    public void addAuthorityTest() {
+        User u = new User();
+        u.setUsername("SSmith");
+        u.setLastName("Smith");
+        u.setEmail("1234567@email.com");
+        u.setPassword("123456");
+        userService.save(u);
+        Long userId = u.getId();
+        Authority a = new Authority();
+        String role = "ROLE_REGISTERED_USER";
+        a.setRole(role);
+        a.setUser(u);
+        authorityService.save(a);
+        List<Authority> testAuthority = authorityService.findAuthorityByUserId(userId);
+        assertNotNull(testAuthority);
+        assertEquals(testAuthority.get(0).getAuthority(), role);
+    }
+
+    @Test
+    @Transactional
+    public void AuthorityTest(){
+        User u = new User();
+        u.setUsername("SSmith");
+        u.setLastName("Smith");
+        u.setEmail("1234567@email.com");
+        u.setPassword("123456");
+        String role = "ROLE_REGISTERED_USER";
+        authorityService.addAuthority(role,u);
+        userService.save(u);
+        List<Authority> testAuthority = authorityService.findAuthorityByUserId(u.getId());
+        assertNotNull(testAuthority);
+        assertEquals(testAuthority.size(),1);
+        assertEquals(testAuthority.get(0).getAuthority(),role);
+
+    }
 }

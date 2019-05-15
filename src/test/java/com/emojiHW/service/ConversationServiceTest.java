@@ -63,11 +63,9 @@ public class ConversationServiceTest {
         c.setContent("smilling_face");
         c.setUser(u);
         conversationService.save(c);
-
-
         List<Conversation> testConversation = conversationService.findConversationByUserId(userId);
         assertNotNull(testConversation);
-        assertEquals(testConversation.size(),1);
+        assertEquals(testConversation.get(0).getContent(),"smilling_face");
 
     }
 }

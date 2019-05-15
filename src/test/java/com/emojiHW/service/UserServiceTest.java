@@ -28,6 +28,9 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthorityService authorityService;
+
     @Test
     @Transactional
     public void findByIdTest() {
@@ -71,7 +74,6 @@ public class UserServiceTest {
         u.setAccountNonLocked(true);
         u.setCredentialsNonExpired(true);
         u.setEnabled(true);
-
         userService.createUser(u);
         List<User> testUser = userService.findAll();
         assertNotNull(testUser);

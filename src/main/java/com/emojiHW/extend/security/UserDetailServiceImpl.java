@@ -30,7 +30,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         logger.debug(username+"is trying to log in from spring security");
 //        User domainUser = null;
         User domainUser = userService.findByUsernameIgnoreCase(username);
-        List<Authority> userAuthorities = userService.findAuthorities(domainUser);
+        List<Authority> userAuthorities = authorityService.findAuthorities(domainUser);
         domainUser.setAuthorities(userAuthorities);
         return domainUser;
     }

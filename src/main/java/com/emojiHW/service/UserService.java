@@ -19,6 +19,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     public UserRepository userRepository;
+    @Autowired
+    public AuthorityService authorityService;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -30,6 +32,7 @@ public class UserService {
         newUser.setAccountNonLocked(true);
         newUser.setCredentialsNonExpired(true);
         newUser.setEnabled(true);
+        authorityService.addAuthority("ROLE_REGISTERED_USER",newUser);
         userRepository.save(newUser);
         return newUser;
     }
@@ -57,8 +60,6 @@ public class UserService {
     public User findByUsernameIgnoreCase(String username) {
         return userRepository.findByUsernameIgnoreCase(username);
     }
-    public List<Authority> findAuthorities(User domainUser){
-        return userRepository.findAuthorities(domainUser);
-    }
+
 
 }

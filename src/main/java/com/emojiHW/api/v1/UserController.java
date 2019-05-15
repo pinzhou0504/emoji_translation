@@ -25,6 +25,7 @@ public class UserController {
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
     public User createUser(@RequestBody User user) {
         User u = userService.createUser(user);
+//        u.setAuthorities("ROLE_REGISTERED_USER");
         return u;
     }
 

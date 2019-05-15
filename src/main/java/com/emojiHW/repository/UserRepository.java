@@ -20,8 +20,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u join fetch u.conversations where u.id=?1")
     Optional<User> findById(Long id);
 
-    @Query("select a from Authority a join fetch a.user where a.user.id =?1")
-    List<Authority> findAuthorities(User domainUser);
+
 
 //    @Query("select u from User u where u.username = ?1")
 //    Optional<User> findUserByUsername(String username);
