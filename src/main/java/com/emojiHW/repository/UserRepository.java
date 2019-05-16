@@ -11,10 +11,12 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
 //    User findByEmailIgnoreCase(String email);
 
-    @Query("select u from User u join fetch u.conversations where u.username=?1")
     User findByUsernameIgnoreCase(String username);
 
-    @Query("select u from User u join fetch u.conversations ")
+    @Query("select u from User u left join fetch u.conversations where u.username=?1")
+    User findByUsernameIgnoreCaseWithConversation(String username);
+
+    @Query("select u from User u left join fetch u.conversations ")
     List<User> findAll();
 
     @Query("select u from User u join fetch u.conversations where u.id=?1")

@@ -3,6 +3,7 @@ package com.emojiHW.service;
 
 import com.emojiHW.config.AppConfig;
 import com.emojiHW.domain.User;
+import com.emojiHW.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {AppConfig.class})
@@ -30,6 +32,9 @@ public class UserServiceTest {
 
     @Autowired
     private AuthorityService authorityService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     @Transactional
@@ -75,12 +80,15 @@ public class UserServiceTest {
         u.setCredentialsNonExpired(true);
         u.setEnabled(true);
         userService.createUser(u);
+//        userRepository.save(u);
         List<User> testUser = userService.findAll();
         assertNotNull(testUser);
         //存了一个user,和一个test比较，所以size=2
         assertEquals(testUser.size(),1);
         //存的user是第0个，所以0和test比较
         assertEquals(u.getUsername(),testUser.get(0).getUsername());
-
+        for (User user: testUser) {
+            assertEquals(u.getUsername(),user.getUsername());
+        }
     }
 }

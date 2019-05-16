@@ -56,7 +56,7 @@ public class UserController {
     //GET /api/users?username=SSmith
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
     public User getUserByUsername(@RequestParam("username") String username) {
-        User user = userService.findByUsernameIgnoreCase(username);
+        User user = userService.findByUsernameIgnoreCaseWithConversation(username);
         return user;
     }
 

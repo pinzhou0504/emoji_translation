@@ -1,8 +1,11 @@
 package com.emojiHW.extend;
 
 import com.emojiHW.config.AppConfig;
+import com.emojiHW.domain.Authority;
 import com.emojiHW.domain.User;
+import com.emojiHW.repository.AuthorityRepository;
 import com.emojiHW.repository.UserRepository;
+import com.emojiHW.service.AuthorityService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -17,7 +20,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 @WebAppConfiguration
@@ -29,6 +35,10 @@ public class UserDetailServiceImplTest {
     private UserDetailsService userDetailsService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthorityService authorityService;
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
 //    private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -46,9 +56,15 @@ public class UserDetailServiceImplTest {
         u.setCredentialsNonExpired(true);
         u.setEnabled(true);
         userRepository.save(u);
+        Authority a = new Authority();
+        String role = "ROLE_REGISTERED_USER";
+        a.setRole(role);
+        a.setUser(u);
+        authorityRepository.save(a);
+//        List<Authority> authority = authorityService.findAuthorityByUserId(u.getId());
         UserDetails testUser = userDetailsService.loadUserByUsername(u.getUsername());
         assertNotNull(testUser);
-        assertEquals(u.getUsername(), testUser.getUsername());
-
+//        assertEquals(u.getAuthorities(),testUser.getAuthorities());
+        assertEquals(testUser.getAuthorities().size(),1);
     }
 }

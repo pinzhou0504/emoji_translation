@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -29,10 +30,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug(username+"is trying to log in from spring security");
 //        User domainUser = null;
-        User domainUser = userService.findByUsernameIgnoreCase(username);
-        List<Authority> userAuthorities = authorityService.findAuthorities(domainUser);
-        domainUser.setAuthorities(userAuthorities);
-        return domainUser;
+        User u = userService.findByUsernameIgnoreCase(username);
+        List<Authority> a = authorityService.findAuthorityByUserId(u.getId());
+        u.setAuthorities(a);
+        return u;
     }
 //
 //    public void save(User user){
