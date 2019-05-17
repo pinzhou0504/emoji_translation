@@ -6,6 +6,15 @@ import com.emojiHW.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +29,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
 
     //url: /api/users POST
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
@@ -31,10 +44,30 @@ public class UserController {
 
     //url: /api/users/login POST
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public RestAuthenticationRequest login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<?> login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
         logger.debug(restAuthenticationRequest.getUsername());
         logger.debug(restAuthenticationRequest.getPassword());
-        return restAuthenticationRequest;
+        try {
+            Authentication notFullyAuthenticated = new UsernamePasswordAuthenticationToken(
+                    restAuthenticationRequest.getUsername(),
+                    restAuthenticationRequest.getPassword()
+            );
+            final Authentication authentication = authenticationManager.authenticate(notFullyAuthenticated);
+            //在springsecuritycontect里面钻井
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return ResponseEntity.ok("login successful");
+
+        } catch (AuthenticationException ex){
+            logger.error("authentication failure, please check your usermane/password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("authentication failure, please check your usermane/password");
+        }
+
+//        try {
+//            final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
+//        }
+
     }
 
 
