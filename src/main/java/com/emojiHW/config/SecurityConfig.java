@@ -59,11 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/api/**").hasAnyRole("REGISTERED_USER","ADMIN")
                 .and()
-                    .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
+                        .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint)
                          .and()
                      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        //                .and()
-        //                  .formLogin();
+//                        .and()
+//                          .formLogin();
     }
 
 }

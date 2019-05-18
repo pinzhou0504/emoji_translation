@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "emojis")
-public class Emoji {
+public class Emoji implements Serializable {
         @Id
         @GeneratedValue(strategy = SEQUENCE, generator = "emojis_id_seq")
         @SequenceGenerator(name = "emojis_id_seq",sequenceName = "emojis_id_seq",allocationSize = 1)

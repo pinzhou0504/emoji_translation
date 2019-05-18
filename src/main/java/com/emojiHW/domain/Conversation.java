@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "conversations")
-public class Conversation {
+public class Conversation implements Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "conversations_id_seq")
     @SequenceGenerator(name = "conversations_id_seq", sequenceName = "conversations_id_seq", allocationSize = 1)

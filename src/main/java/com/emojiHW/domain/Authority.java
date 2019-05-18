@@ -6,11 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.management.relation.Role;
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table (name = "Authorities")
-public class Authority implements GrantedAuthority {
+public class Authority implements GrantedAuthority, Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "authorities_id_seq")
     @SequenceGenerator(name = "authorities_id_seq", sequenceName = "authorities_id_seq", allocationSize = 1)
