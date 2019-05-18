@@ -1,8 +1,10 @@
 package com.emojiHW.api.v1;
 
+import com.emojiHW.extend.security.JwtTokenUtil;
 import com.emojiHW.extend.security.RestAuthenticationRequest;
 import com.emojiHW.domain.User;
 import com.emojiHW.service.UserService;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
 
 
 
@@ -55,19 +60,22 @@ public class UserController {
                     restAuthenticationRequest.getPassword()
             );
             final Authentication authentication = authenticationManager.authenticate(notFullyAuthenticated);
-            //在springsecuritycontect里面钻井
+            //在springsecuritycontect里面钻个洞
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok("login successful");
+//            try{
+                final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
+                final String token = jwtTokenUtil.generateToken(userDetails);
+                return ResponseEntity.ok(token);
+//            }
+//            catch (NotFoundException e){
+//                logger.error("System can't find user by email or username",e);
+//                return ResponseEntity.notFound().build();
+//            }
 
         } catch (AuthenticationException ex){
             logger.error("authentication failure, please check your usermane/password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("authentication failure, please check your usermane/password");
         }
-
-//        try {
-//            final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
-//        }
-
     }
 
 
