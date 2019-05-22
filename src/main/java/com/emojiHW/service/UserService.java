@@ -4,6 +4,8 @@ package com.emojiHW.service;
 import com.emojiHW.domain.Authority;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.UserRepository;
+import com.sun.tools.corba.se.idl.constExpr.Not;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -57,8 +59,18 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User findByUsernameIgnoreCase(String username) {
-        return userRepository.findByUsernameIgnoreCase(username);
+    public User findByUsernameIgnoreCase(String username) throws NullPointerException,NotFoundException {
+        if (username == null){
+            throw new NotFoundException("username is not found");
+        }
+        User u = userRepository.findByUsernameIgnoreCase(username);
+        if (u == null){
+            u = userRepository.findByUsernameIgnoreCaseWithConversation(username);
+        }
+        if (u == null){
+            throw new NullPointerException();
+        }
+        return u;
     }
 
     public User findByUsernameIgnoreCaseWithConversation(String username) {

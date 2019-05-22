@@ -7,6 +7,7 @@ import com.emojiHW.config.AppConfig;
 import com.emojiHW.domain.User;
 import com.emojiHW.extend.security.JwtTokenUtil;
 import com.emojiHW.service.UserService;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+
 
 
 @WebAppConfiguration
@@ -31,8 +37,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
 public class JwtTokenUtilTest {
-
-
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -47,16 +51,6 @@ public class JwtTokenUtilTest {
     @Test
     public void generateTokenTest(){
         User u = new User();
-        u.setUsername("SSmith");
-        u.setFirstName("Sam");
-        u.setLastName("Smith");
-        u.setEmail("1234567@email.com");
-        u.setPassword("123456");
-        u.setAccountNonExpired(true);
-        u.setAccountNonLocked(true);
-        u.setCredentialsNonExpired(true);
-        u.setEnabled(true);
-//        userService.save(u);
         String token = jwtTokenUtil.generateToken(u);
 //        System.out.println(token);
         String [] parts = token.split("\\.") ;
@@ -68,11 +62,38 @@ public class JwtTokenUtilTest {
         }
 
 
+    @Transactional
+    @Test
+    public void getUsernameFromTokenTest(){
+        User u = new User();
+        u.setUsername("SSmith");
+        String token = jwtTokenUtil.generateToken(u);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+//        User testUser = userService.findByUsernameIgnoreCase(u.getUsername());
+        assertEquals(username, u.getUsername());
+    }
 
+    @Test
+    @Transactional
+    public void isTokenExpiredTest(){
+        User u = new User();
+        String token = jwtTokenUtil.generateToken(u);
+        Boolean validateToken = jwtTokenUtil.isTokenExpired(token);
+//        System.out.println(validateToken);
+        assertEquals(false,validateToken);
 
-//        UserDetails testUser = userDetailsService.loadUserByUsername(u.getUsername());
-
-
+//
+//        Map<String,Object> claims = new HashMap<>();
+//        claims.put(JwtTokenUtil.CLAIM_KEY_USERNAME,"username");
+//        claims.put(JwtTokenUtil.CLAIM_KEY_CREATED,new Date(System.currentTimeMillis()-10000));
+//        String invalidToken = Jwts.builder()
+//                .setClaims(claims)
+//                .setExpiration(new Date(System.currentTimeMillis()+10000))
+//                .signWith(SignatureAlgorithm.HS512, "emojiHW")
+//                .compact();
+//        Boolean invalidate = jwtTokenUtil.isTokenExpired(invalidToken);
+//        assertEquals(true,invalidate);
+    }
 
    }
 

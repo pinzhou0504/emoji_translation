@@ -20,7 +20,7 @@ public class JwtTokenUtil {
 
     private String secret = "emojiHW";
 
-    private Long expiration = 86400L;
+    private long expiration = 86400l;
 
     private Date generateExpirationDate(){
         return new Date(System.currentTimeMillis()+ expiration *1000);
@@ -54,7 +54,7 @@ public class JwtTokenUtil {
 
 
 
-    private Boolean isTokenExpired(String token){
+    public Boolean isTokenExpired(String token){
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
@@ -69,7 +69,6 @@ public class JwtTokenUtil {
         }
         return expiration;
     }
-
 
 
 

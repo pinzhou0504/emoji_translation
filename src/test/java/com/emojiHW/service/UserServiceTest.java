@@ -4,6 +4,7 @@ package com.emojiHW.service;
 import com.emojiHW.config.AppConfig;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.UserRepository;
+import javassist.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class UserServiceTest {
 
     @Test
     @Transactional
-    public void findByUsernameIgnoreCase(){
+    public void findByUsernameIgnoreCase() throws NotFoundException,NullPointerException {
         User u = new User();
         u.setUsername("SSmith");
         u.setFirstName("Sam");

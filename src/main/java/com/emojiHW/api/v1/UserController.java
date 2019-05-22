@@ -62,15 +62,14 @@ public class UserController {
             final Authentication authentication = authenticationManager.authenticate(notFullyAuthenticated);
             //在springsecuritycontect里面钻个洞
             SecurityContextHolder.getContext().setAuthentication(authentication);
-//            try{
+            try{
                 final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
                 final String token = jwtTokenUtil.generateToken(userDetails);
                 return ResponseEntity.ok(token);
-//            }
-//            catch (NotFoundException e){
-//                logger.error("System can't find user by email or username",e);
-//                return ResponseEntity.notFound().build();
-//            }
+            } catch (NotFoundException|NullPointerException e){
+                logger.error("System can't find user by email or username",e);
+                return ResponseEntity.notFound().build();
+            }
 
         } catch (AuthenticationException ex){
             logger.error("authentication failure, please check your usermane/password");
