@@ -60,7 +60,7 @@ public class UserService {
     }
 
     public User findByUsernameIgnoreCase(String username) throws NullPointerException,NotFoundException {
-        if (username == null){
+        if (username == null ){
             throw new NotFoundException("username is not found");
         }
         User u = userRepository.findByUsernameIgnoreCase(username);

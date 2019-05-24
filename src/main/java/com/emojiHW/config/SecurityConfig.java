@@ -22,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
     @Autowired
     private UserDetailsService userDetailsService;
+
 //    step 1
 //    @Autowired
 //    public void configureGlocal(AuthenticationManagerBuilder auth)

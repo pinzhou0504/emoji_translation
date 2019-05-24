@@ -51,10 +51,10 @@ public class UserDetailServiceImplTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
-        u.setAccountNonExpired(true);
-        u.setAccountNonLocked(true);
-        u.setCredentialsNonExpired(true);
-        u.setEnabled(true);
+//        u.setAccountNonExpired(true);
+//        u.setAccountNonLocked(true);
+//        u.setCredentialsNonExpired(true);
+//        u.setEnabled(true);
         userRepository.save(u);
         Authority a = new Authority();
         String role = "ROLE_REGISTERED_USER";

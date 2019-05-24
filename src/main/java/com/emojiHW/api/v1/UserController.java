@@ -20,7 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -51,7 +53,7 @@ public class UserController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<?> login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
+    public ResponseEntity<Map> login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
         logger.debug(restAuthenticationRequest.getUsername());
         logger.debug(restAuthenticationRequest.getPassword());
         try {
@@ -65,7 +67,8 @@ public class UserController {
             try{
                 final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
                 final String token = jwtTokenUtil.generateToken(userDetails);
-                return ResponseEntity.ok(token);
+
+                return ResponseEntity.ok(jwtTokenUtil.mapToken(token));
             } catch (NotFoundException|NullPointerException e){
                 logger.error("System can't find user by email or username",e);
                 return ResponseEntity.notFound().build();
@@ -73,7 +76,9 @@ public class UserController {
 
         } catch (AuthenticationException ex){
             logger.error("authentication failure, please check your usermane/password");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("authentication failure, please check your usermane/password");
+            Map m = new HashMap<>();
+            m.put("error","String");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(m);
         }
     }
 
