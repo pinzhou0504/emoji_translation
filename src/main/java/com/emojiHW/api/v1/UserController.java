@@ -67,8 +67,10 @@ public class UserController {
             try{
                 final UserDetails userDetails = userService.findByUsernameIgnoreCase(restAuthenticationRequest.getUsername());
                 final String token = jwtTokenUtil.generateToken(userDetails);
-
-                return ResponseEntity.ok(jwtTokenUtil.mapToken(token));
+                //把token转换成json格式在postman里
+                Map<String,String> tokenToString = new HashMap<>();
+                tokenToString.put("token:",token);
+                return ResponseEntity.ok(tokenToString);
             } catch (NotFoundException|NullPointerException e){
                 logger.error("System can't find user by email or username",e);
                 return ResponseEntity.notFound().build();
@@ -77,7 +79,7 @@ public class UserController {
         } catch (AuthenticationException ex){
             logger.error("authentication failure, please check your usermane/password");
             Map m = new HashMap<>();
-            m.put("error","String");
+            m.put("error:","authentication failure, please check your usermane/password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(m);
         }
     }

@@ -100,10 +100,10 @@ public class JwtTokenUtil {
         );
     }
 
-    public Map<String, String> mapToken(String token){
-        HashMap<String,String> map = new HashMap<>();
-        map.put("token:",token);
-        return map;
-    }
+//    public Map<String, String> mapToken(String token){
+//        HashMap<String,String> map = new HashMap<>();
+//        map.put("token:",token);
+//        return map;
+//    }
 
 }
