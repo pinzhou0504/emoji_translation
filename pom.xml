@@ -15,6 +15,13 @@
         <flyway.version>5.2.4</flyway.version>
         <maven-compiler.version>3.8.0</maven-compiler.version>
         <org.slf4j-version>1.7.25</org.slf4j-version>
+        <aws.sdk.version>1.11.563</aws.sdk.version>
+        <java.servlet.version>4.0.1</java.servlet.version>
+        <log4j.version>1.2.15</log4j.version>
+        <junit.version>4.12</junit.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <com.auth0.version>3.4.0</com.auth0.version>
+        <io.jsonwebtoken.version>0.9.0</io.jsonwebtoken.version>
 
     </properties>
 
@@ -35,7 +42,14 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${java.servlet.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws.sdk.version}</version>
         </dependency>
 
         <dependency>
@@ -96,7 +110,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>${log4j.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.mail</groupId>
@@ -138,7 +152,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -171,7 +185,7 @@
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <version>${commons-dbcp.version}</version>
         </dependency>
 
         <!--hibernate-->
@@ -227,12 +241,12 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
+            <version>${io.jsonwebtoken.version}</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.4.0</version>
+            <version>${com.auth0.version}</version>
         </dependency>
 
     </dependencies>
@@ -265,9 +279,10 @@
                         <version>${flyway.version}</version>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/emojihw_dev</url>
-                            <user>admin</user>
-                            <password>password</password>
+                            <!-- db_url = localhost:5432/emojihw_dev-->
+                            <url>jdbc:postgresql://${db_url}</url>
+                            <user>${db_username}</user>
+                            <password>${db_password}</password>
                             <locations>
                                 <location>db/migration</location>
                             </locations>
@@ -286,9 +301,10 @@
                         <version>${flyway.version}</version>
                         <configuration>
                             <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost:5432/emojihw_unit</url>
-                            <user>admin</user>
-                            <password>password</password>
+                            <!--db_url = localhost:5432/emojihw_unit-->
+                            <url>jdbc:postgresql://${db_url}</url>
+                            <user>${db_username}</user>
+                            <password>${db_password}</password>
                             <locations>
                                 <location>db/migration</location>
                             </locations>

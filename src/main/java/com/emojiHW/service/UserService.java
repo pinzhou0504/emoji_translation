@@ -1,21 +1,16 @@
 package com.emojiHW.service;
 
 
-import com.emojiHW.domain.Authority;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.UserRepository;
-import com.sun.tools.corba.se.idl.constExpr.Not;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Id;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class UserService {
