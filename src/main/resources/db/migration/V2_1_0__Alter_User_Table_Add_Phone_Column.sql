@@ -1,0 +1,1 @@
+Alter table users add column phone_number varchar(255) not null default '1234567890';

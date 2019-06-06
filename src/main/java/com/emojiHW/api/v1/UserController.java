@@ -1,9 +1,11 @@
 package com.emojiHW.api.v1;
 
+import com.emojiHW.domain.Views;
 import com.emojiHW.extend.security.JwtTokenUtil;
 import com.emojiHW.extend.security.RestAuthenticationRequest;
 import com.emojiHW.domain.User;
 import com.emojiHW.service.UserService;
+import com.fasterxml.jackson.annotation.JsonView;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,8 @@ public class UserController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private Views views;
 
 
 
@@ -53,7 +57,7 @@ public class UserController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Map> login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
+    public ResponseEntity<?> login(@RequestBody RestAuthenticationRequest restAuthenticationRequest){
         logger.debug(restAuthenticationRequest.getUsername());
         logger.debug(restAuthenticationRequest.getPassword());
         try {
@@ -70,16 +74,17 @@ public class UserController {
                 //把token转换成json格式在postman里
                 Map<String,String> tokenToString = new HashMap<>();
                 tokenToString.put("token:",token);
-                return ResponseEntity.ok(tokenToString);
+                ResponseEntity<?> responseEntity = ResponseEntity.ok(tokenToString);
+                return responseEntity;
             } catch (NotFoundException|NullPointerException e){
                 logger.error("System can't find user by email or username",e);
                 return ResponseEntity.notFound().build();
             }
 
         } catch (AuthenticationException ex){
-            logger.error("authentication failure, please check your usermane/password");
+//            logger.error("authentication failure, please check your username/password");
             Map m = new HashMap<>();
-            m.put("error:","authentication failure, please check your usermane/password");
+            m.put("error:","authentication failure, please check your username/password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(m);
         }
     }
@@ -88,6 +93,7 @@ public class UserController {
 
     //url: /api/user GET user list
     @RequestMapping(method = RequestMethod.GET)
+    @JsonView(Views.UserConversationViews.class)
     public List<User> getUserList() {
         logger.debug("list users");
         return userService.findAll();
@@ -95,6 +101,7 @@ public class UserController {
 
     //GET user by Id, http://localhost:8080/api/users/8 to get id = 8
     @RequestMapping(method = RequestMethod.GET, value = "/{Id}")
+    @JsonView(Views.UserConversationViews.class)
     public User getUserById(@PathVariable("Id") Long Id) {
         User user = userService.findById(Id);
         return user;
@@ -102,6 +109,7 @@ public class UserController {
 
     //GET /api/users?username=SSmith
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
+    @JsonView(Views.UserConversationViews.class)
     public User getUserByUsername(@RequestParam("username") String username) {
         User user = userService.findByUsernameIgnoreCaseWithConversation(username);
         return user;
@@ -109,8 +117,17 @@ public class UserController {
 
     //url: /api/user DELETE http://localhost:8080/api/users/8 to delete id = 8
     @RequestMapping(method = RequestMethod.DELETE, value = "/{Id}")
+    @JsonView(Views.UserConversationViews.class)
     public void deleteUser(@PathVariable("Id") Long Id) {
 //        User user = new User();
         userService.deleteById(Id);
+    }
+
+    //url: /api/users?phoneNumber=1234567890 GET user by phone number
+    @RequestMapping(method = RequestMethod.GET,params = {"phoneNumber"})
+    @JsonView(Views.UserViews.class)
+    public List<User> getUserByPhoneNumber(@RequestParam("phoneNumber")String phoneNumber){
+        List<User> user = userService.findByPhoneNumber(phoneNumber);
+        return user;
     }
 }

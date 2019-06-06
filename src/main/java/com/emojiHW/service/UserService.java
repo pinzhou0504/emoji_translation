@@ -72,5 +72,9 @@ public class UserService {
         return userRepository.findByUsernameIgnoreCaseWithConversation(username);
     }
 
+    public List<User> findByPhoneNumber(String phoneNumber){
+        return userRepository.findByPhoneNumber(phoneNumber);
+    }
+
 
 }

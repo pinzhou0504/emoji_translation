@@ -19,9 +19,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u left join fetch u.conversations ")
     List<User> findAll();
 
-    @Query("select u from User u join fetch u.conversations where u.id=?1")
+    @Query("select u from User u  left join fetch u.conversations where u.id=?1")
     Optional<User> findById(Long id);
 
+    @Query("select u from User u where u.phoneNumber=?1")
+    List<User> findByPhoneNumber(String phoneNumber);
 
 
 //    @Query("select u from User u where u.username = ?1")

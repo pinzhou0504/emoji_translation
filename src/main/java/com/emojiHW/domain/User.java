@@ -2,6 +2,7 @@ package com.emojiHW.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.sun.javafx.beans.IDProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,20 +20,26 @@ public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
+    @JsonView({Views.UserConversationViews.class})
     private Long id;
 
+    @JsonView({Views.UserViews.class,Views.UserConversationViews.class})
     @Column(unique = true)
     private String username;
 
+    @JsonView({Views.UserViews.class,Views.UserConversationViews.class})
     @Column(name = "first_name")
     private String firstName;
 
+    @JsonView({Views.UserViews.class,Views.UserConversationViews.class})
     @Column(name = "last_name")
     private String lastName;
 
+    @JsonView({Views.UserViews.class,Views.UserConversationViews.class})
     @Column(name = "password")
     private String password;
 
+    @JsonView({Views.UserViews.class,Views.UserConversationViews.class})
     @Column(name = "email")
     private String email;
 
@@ -47,6 +54,10 @@ public class User implements UserDetails, Serializable {
 
     @Column(name = "enabled")
     private boolean enabled;
+
+    @JsonView({Views.UserViews.class})
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
@@ -152,6 +163,10 @@ public class User implements UserDetails, Serializable {
     public void setEmail(String s) {this.email=s;}
 
     public String getEmail() { return this.email;}
+
+    public void setPhoneNumber(String s){this.phoneNumber=s;}
+
+    public String getPhoneNumber(){return this.phoneNumber;}
 
 
 
