@@ -1,5 +1,7 @@
 package com.emojiHW.service;
+
 import java.io.File;
+import java.net.URL;
 import java.security.Key;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
@@ -9,22 +11,28 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class StorageService {
-    private String clientRegion = "us-east-1";
-    public void uploadObject (String bucketName,File file){
+    private AmazonS3 s3Client;
+
+    //            = AmazonS3ClientBuilder.standard()
+//            .withRegion(clientRegion)
+//            .withCredentials(new DefaultAWSCredentialsProviderChain())
+//            .build();
+    public StorageService(@Autowired AmazonS3 s3) {
+            this.s3Client=s3;}
+
+    public void uploadObject(String bucketName, File file) {
 
 //        try {
-            AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                    .withRegion(clientRegion)
-                    .withCredentials(new DefaultAWSCredentialsProviderChain())
-                    .build();
 
-            // Upload a file as a new object with ContentType and title specified.
-            PutObjectRequest request = new PutObjectRequest(bucketName, file.getName(),file);
-            s3Client.putObject(request);
+
+        // Upload a file as a new object with ContentType and title specified.
+        PutObjectRequest request = new PutObjectRequest(bucketName, file.getName(), file);
+        s3Client.putObject(request);
 //        }
 //        catch(AmazonServiceException e) {
 //            // The call was transmitted successfully, but Amazon S3 couldn't process
@@ -37,15 +45,15 @@ public class StorageService {
 //            e.printStackTrace();
 //        }
     }
+
     public String getObjectUrl(String bucketName, String key) {
 //        S3Object fullObject = null;
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
-                .withRegion(clientRegion)
-                .withCredentials(new ProfileCredentialsProvider())
-                .build();
+
 //        fullObject = s3Client.getObject(new GetObjectRequest(bucketName, key));
-        String getUrl = s3Client.getUrl(bucketName, key).toString();
-        return getUrl;
+        URL url = s3Client.getUrl(bucketName, key);
+        String urlStr = url.toString();
+        return urlStr;
+
 
 //        S3Object fullObject = null;
 //        // Get an object and print its contents.
@@ -56,6 +64,14 @@ public class StorageService {
 //        displayTextInputStream(fullObject.getObjectContent());
 
 
+    }
+
+    public void setS3Client(AmazonS3 s3Client){
+        this.s3Client=s3Client;
+    }
+
+    public AmazonS3 getS3Client(){
+        return s3Client;
     }
 }
 

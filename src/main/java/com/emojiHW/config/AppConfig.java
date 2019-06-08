@@ -1,12 +1,13 @@
 package com.emojiHW.config;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
@@ -22,4 +23,19 @@ public class AppConfig {
         bean.setLocation(new ClassPathResource("META-INF/share-runtime.properties"));
         return bean;
     }
+
+    //下面的test是test environment，QA做的
+    @Bean
+    @Profile({"dev","test","stage","prod"})
+    public AmazonS3 getAmazonS3bean(){
+        String clientRegion = "us-east-1";
+        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+            .withRegion(clientRegion)
+            .withCredentials(new DefaultAWSCredentialsProviderChain())
+            .build();
+        return s3Client;
+    }
+
+    @Value("${region}")
+    private String clientRegion;
 }
