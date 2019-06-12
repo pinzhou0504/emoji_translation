@@ -1,8 +1,7 @@
 package com.emojiHW.service;
 
 import com.emojiHW.config.AppConfig;
-import com.emojiHW.domain.Conversation;
-import com.emojiHW.domain.Emoji;
+import com.emojiHW.domain.Image;
 import com.emojiHW.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,38 +14,35 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.transaction.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
-
 
 @WebAppConfiguration
 @ContextConfiguration(classes = {AppConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
-public class ConversationServiceTest {
+public class ImageServiceTest {
     @Autowired
-    private ConversationService conversationService;
+    private ImageService imageService;
     @Autowired
     private UserService userService;
 
     @Test
     @Transactional
-    public void findByIdTest() {
-        Conversation c = new Conversation();
-        c.setContent("smilling_face");
-        conversationService.save(c);
-        Conversation testConversation = conversationService.findById(c.getId());
-        assertNotNull(testConversation);
-        assertEquals(c.getId(), testConversation.getId());
+    public void findKeyByImageIdTest(){
+        Image image = new Image();
+        image.setKey("keyName");
+        imageService.save(image);
+        Image imageTest = imageService.findKeyByImageId(image.getId());
+        assertNotNull(imageTest);
+        assertEquals(image.getId(), imageTest.getId());
     }
 
-    @Test
     @Transactional
-    public void findConversationByUserIdTest(){
-
-        //在conversation里找user的id，所以要设置user的instance
+    @Test
+    public void findImageKeyByUserIdTest(){
+        //在image里找user的id，所以要设置user的instance
         User u = new User();
         u.setUsername("SSmith");
 //        u.setFirstName("Sam");
@@ -60,13 +56,14 @@ public class ConversationServiceTest {
 //        u.setEnabled(true);
         userService.save(u);
         Long userId = u.getId();
-        Conversation c = new Conversation();
-        c.setContent("smilling_face");
-        c.setUser(u);
-        conversationService.save(c);
-        List<Conversation> testConversation = conversationService.findConversationByUserId(userId);
-        assertNotNull(testConversation);
-        assertEquals(testConversation.get(0).getContent(),"smilling_face");
+        Image image = new Image();
+        image.setKey("keyName");
+        image.setBucketName("bucketName");
+        image.setUser(u);
+        imageService.save(image);
+        List<Image> testImageKey = imageService.findImageKeyByUserId(userId);
+        assertNotNull(testImageKey);
+        assertEquals(testImageKey.get(0).getKey(),"keyName");
 
     }
 }

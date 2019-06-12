@@ -46,6 +46,7 @@ public class UserServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setPhoneNumber("1234567890");
         userService.save(u);
         User testUser = userService.findById(u.getId());
         assertNotNull(testUser);
@@ -61,6 +62,7 @@ public class UserServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setPhoneNumber("1234567890");
         userService.save(u);
         User testUser = userService.findByUsernameIgnoreCase(u.getUsername());
         assertNotNull(testUser);

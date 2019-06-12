@@ -37,6 +37,7 @@ public class AuthorityServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setPhoneNumber("1234567890");
         userService.save(u);
         Long userId = u.getId();
         Authority a = new Authority();
@@ -58,6 +59,7 @@ public class AuthorityServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setPhoneNumber("1234567890");
         userService.save(u);
         Long userId = u.getId();
         Authority a = new Authority();
@@ -78,6 +80,7 @@ public class AuthorityServiceTest {
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
+        u.setPhoneNumber("1234567890");
         String role = "ROLE_REGISTERED_USER";
         authorityService.addAuthority(role,u);
         userService.save(u);

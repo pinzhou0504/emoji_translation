@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 public class Views {
     public interface UserViews{}
     public interface UserConversationViews{}
+    public interface UserImageViews{}
 }
