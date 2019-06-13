@@ -88,7 +88,33 @@ Requestbody
 3. User Login with Token
 
 ```POST - http://localhost:8080/api/user/login```
+![signup](https://raw.githubusercontent.com/pinzhou0504/emoji_translation/master/images/Screen%20Shot%202019-06-13%20at%204.37.29%20PM.png)
 
+ResponseEntity:
+
+```
+{
+"token:": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI5IiwiY3JlYXRlZCI6MTU2MDQ1ODIyNzg3NiwiZXhwIjoxNTYwNTQ0NjI3fQ.s9o2X1g032w4oztF150mdyV_hXsynYG_CeK5u_j8nxl3otjUco-xsUXMp6r4dvf122UF_g_ZN8Ar8qUxPXGIHA"
+}
+```
+
+![token](https://raw.githubusercontent.com/pinzhou0504/emoji_translation/master/images/Screen%20Shot%202019-06-13%20at%204.37.38%20PM.png)
+
+4. Input the JwtToken with Serect Key and use findByUsername pass the Username by using @RequestParam.
+ ```GET - http://localhost:8080/api/user/?first_name=Chris  ```
+ ResponseEntity:
+ ```
+ {
+     "id": 13,
+     "username": "9",
+     "firstName": "9",
+     "lastName": "9",
+     "password": "$2a$10$fLJLP.wnwl50uUJMH5LkcOxlxy7A8eFH4yyd1ohf5XkvJ35S8AJZK",
+     "email": "9@gmail.com"
+ }
+ ```
+ ![findByUsername](https://raw.githubusercontent.com/pinzhou0504/emoji_translation/master/images/Screen%20Shot%202019-06-13%20at%204.38.59%20PM.png)
+ 
 
 
 Userful links
