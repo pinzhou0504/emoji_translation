@@ -5,6 +5,7 @@ import com.emojiHW.config.AppConfig;
 import com.emojiHW.domain.User;
 import com.emojiHW.repository.UserRepository;
 import javassist.NotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
 public class UserServiceTest {
+    private User u;
 
     @Autowired
     private UserService userService;
@@ -37,16 +39,27 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    @Transactional
-    public void findByIdTest() {
-        User u = new User();
+    @Before
+    public void init() {
+        u = new User();
         u.setUsername("SSmith");
         u.setFirstName("Sam");
         u.setLastName("Smith");
         u.setEmail("1234567@email.com");
         u.setPassword("123456");
         u.setPhoneNumber("1234567890");
+    }
+
+    @Test
+    @Transactional
+    public void findByIdTest() {
+//        User u = new User();
+//        u.setUsername("SSmith");
+//        u.setFirstName("Sam");
+//        u.setLastName("Smith");
+//        u.setEmail("1234567@email.com");
+//        u.setPassword("123456");
+//        u.setPhoneNumber("1234567890");
         userService.save(u);
         User testUser = userService.findById(u.getId());
         assertNotNull(testUser);
@@ -56,13 +69,13 @@ public class UserServiceTest {
     @Test
     @Transactional
     public void findByUsernameIgnoreCase() throws NotFoundException,NullPointerException {
-        User u = new User();
-        u.setUsername("SSmith");
-        u.setFirstName("Sam");
-        u.setLastName("Smith");
-        u.setEmail("1234567@email.com");
-        u.setPassword("123456");
-        u.setPhoneNumber("1234567890");
+//        User u = new User();
+//        u.setUsername("SSmith");
+//        u.setFirstName("Sam");
+//        u.setLastName("Smith");
+//        u.setEmail("1234567@email.com");
+//        u.setPassword("123456");
+//        u.setPhoneNumber("1234567890");
         userService.save(u);
         User testUser = userService.findByUsernameIgnoreCase(u.getUsername());
         assertNotNull(testUser);
@@ -72,12 +85,12 @@ public class UserServiceTest {
     @Test
     @Transactional
     public void findAll(){
-        User u = new User();
-        u.setUsername("SSmith");
-        u.setFirstName("Sam");
-        u.setLastName("Smith");
-        u.setEmail("1234567@email.com");
-        u.setPassword("123456");
+//        User u = new User();
+//        u.setUsername("SSmith");
+//        u.setFirstName("Sam");
+//        u.setLastName("Smith");
+//        u.setEmail("1234567@email.com");
+//        u.setPassword("123456");
         u.setAccountNonExpired(true);
         u.setAccountNonLocked(true);
         u.setCredentialsNonExpired(true);

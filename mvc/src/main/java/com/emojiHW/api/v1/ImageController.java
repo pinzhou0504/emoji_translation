@@ -43,7 +43,7 @@ public class ImageController {
     @RequestMapping(value = "/user/{user_id}", method = RequestMethod.POST)
     public Image uploadPicture(@RequestParam(value = "pic") MultipartFile picture ,@PathVariable("user_id") Long userId) {
         String bucketName = "emojihw-dev";
-        String key = UUID.randomUUID().toString()+picture.getOriginalFilename();
+        String key = UUID.randomUUID().toString().replace("-","")+picture.getOriginalFilename();
 //        if (null != picture && picture.getSize() > 0) {
 //            for () {
 //                String fileName = picture.getOriginalFilename();
