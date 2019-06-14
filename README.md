@@ -28,7 +28,7 @@ This aapilication is developed using Spring MVC, Spring Data, Spring RESTful web
 
 3. Open a new command line window and Spin up the PostgreSql database server using Postgres docker image
 
-```docker pull```
+```docker pull PostgreSQL```
 
 ```bash
 docker run --name ${EmojiHW} -e POSTGRES_DB=${EmojiHW_dev} -e POSTGRES_USER=${db_username} -e POSTGRES_PASSWORD=${db_password} -p 5432:5432 -d postgres
@@ -39,16 +39,12 @@ docker run --name ${EmojiHW} -e POSTGRES_DB=${EmojiHW_dev} -e POSTGRES_USER=${db
 
 #### Database Migration
 ---
-5. Schema migration for creating tables in database for dev environment on basketball-MVC folder.
+5. Schema migration for creating tables in database for dev environment on emojiHW-MVC folder.
 
 ```bash
 mvn compile flyway:migrate -Ddb.url=${localhost:5432/emojihw_dev} -Ddb.password=${password} -Ddb.username=${username}
 ```
-Schema migration for creating tables in database for unit environment on basketball-MVC folder.
 
-```bash
-mvn compile flyway:migrate -Ddb.url=${localhost:5432/emojihw_unit} -Ddb.password=${password} -Ddb.username=${username}
-```
 
 #### Testing Results
 ---
