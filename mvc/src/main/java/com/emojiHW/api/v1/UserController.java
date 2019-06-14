@@ -4,6 +4,7 @@ import com.emojiHW.domain.Views;
 import com.emojiHW.extend.security.JwtTokenUtil;
 import com.emojiHW.extend.security.RestAuthenticationRequest;
 import com.emojiHW.domain.User;
+import com.emojiHW.service.MessageSQSService;
 import com.emojiHW.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import javassist.NotFoundException;
@@ -40,6 +41,8 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private Views views;
+    @Autowired
+    private MessageSQSService messageSQSService;
 
 
 
@@ -130,6 +133,11 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping(value = "/email", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void sendEmail(@RequestParam(value = "userId")Long userId){
+        messageSQSService.sendMessage(String.valueOf(userId));
+    }
 
 
 }

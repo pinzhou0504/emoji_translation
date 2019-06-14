@@ -18,6 +18,8 @@ public class UserService {
     public UserRepository userRepository;
     @Autowired
     public AuthorityService authorityService;
+    @Autowired
+    private MessageSQSService messageSQSService;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

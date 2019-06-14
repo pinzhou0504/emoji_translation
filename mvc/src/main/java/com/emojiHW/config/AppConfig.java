@@ -3,6 +3,9 @@ package com.emojiHW.config;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +39,16 @@ public class AppConfig {
         return s3Client;
     }
 
-    @Value("${region}")
-    private String clientRegion;
+    @Bean
+    @Profile({"dev","test","stage","prod"})
+    public AmazonSQS getAmazonSQS() {
+        AmazonSQS client = AmazonSQSClientBuilder
+                .standard()
+                .withCredentials(new DefaultAWSCredentialsProviderChain())
+                .build();
+        return client;
+    }
+
+//    @Value("${region}")
+//    private String clientRegion;
 }
