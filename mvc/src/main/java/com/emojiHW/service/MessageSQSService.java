@@ -2,9 +2,14 @@ package com.emojiHW.service;
 
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 @Component
 public class MessageSQSService {
@@ -27,4 +32,7 @@ public class MessageSQSService {
                 .withMessageBody(message);
         sqs.sendMessage(send_msg_request);
     }
+
+
+
 }

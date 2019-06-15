@@ -1,8 +1,6 @@
 package com.emojiHW.service;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.emojiHW.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +14,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.io.File;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -25,7 +22,6 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("unit")
 public class StorageServiceTest extends UserServiceTest{
-    private String clientRegion;
     @Autowired
     private StorageService storageService;
 

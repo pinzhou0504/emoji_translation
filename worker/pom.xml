@@ -15,6 +15,21 @@
 
     <dependencies>
 
+        <!--jms connection factory-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>amazon-sqs-java-messaging-lib</artifactId>
+            <version>1.0.4</version>
+            <type>jar</type>
+        </dependency>
+
+        <!--amazonaws-->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws.sdk.version}</version>
+        </dependency>
+
         <!-- spring boot starter test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -32,7 +47,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -62,6 +77,12 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
             <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>1.11.566</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
