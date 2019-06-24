@@ -113,7 +113,7 @@ ResponseEntity:
  
 
 
-Userful links
+Useful links
 
 [Full Emoji List v12.0](https://unicode.org/emoji/charts/full-emoji-list.html)
 
